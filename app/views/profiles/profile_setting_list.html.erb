@@ -1,0 +1,50 @@
+<div class="prfile-cover-img">
+  <%= profile_cover_image @profile_setting%>
+  <%#= image_tag @profile_setting.cover_image.url%>
+</div>
+
+<div class="profile-main-box">
+  <div class="top-profile-bar">
+    <ul>
+      <li><b>SCNS</b> <%= total_scns(@associate_user)%></li>
+      <li><b><%= total_questions(@associate_user)%></b> Questions</li>
+      <li><b><%= total_answers(@associate_user)%></b> Answers</li>
+    </ul>
+  </div>
+<div class="profile-details-box">
+  <div class="col-md-3 col-xs-4">
+    <div class="profile-pic">
+      <%= profile_photo @profile_setting %>
+      <%#= image_tag @profile_setting.profile_image.url%>
+    </div>
+    <h1 class="profile-name-title">Joined - <%= user_created_at(@associate_user.created_at)%></h1>
+  </div>
+  <div class="col-md-9 col-xs-8">
+    <div class="profile-right">
+      <i class="fa fa-envelope-o pull-right"></i>
+       <h1><%= @associate_user.name%></h1>
+       <p><%= @profile_setting.specialist_name%></p>
+       <p>
+          <%@home_addresses.each do |address|%>
+            <%= address.address_location %>
+          <%end%>
+       </p>
+       <p><%#= @associate_user.residency%></p>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="clearfix"></div>
+ <div class="col-md-12 clear-box icon-text-field">
+  <div class="col-sm-12 col-xs-12 col-md-12 clear-box">
+    <ul class="nav nav-tabs pf-tabs-nav">
+      <li class="active"><a data-toggle="tab" href="#pl_tab">Practice &<br>Location</a></li>
+      <li><a data-toggle="tab" href="#ae_tab">Academic<br>Education</a></li>
+      <li><a data-toggle="tab" href="#sa_tab">SCN<br>Activities</a></li>
+      <li><a data-toggle="tab" href="#mh_tab">My<br>Hub</a></li>
+      <li><a data-toggle="tab" href="#am_tab">About<br>Me</a></li>
+    </ul>
+    	<%= render 'profile_show_list'%>
+   </div>
+</div>

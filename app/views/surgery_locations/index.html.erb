@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-5">
+       <h4>
+          <%= link_to user_app_data_profile_path(current_user) do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">My App data</i>
+          <%end%>
+       </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-4">
+        <span class="cse-shw-dte">Locations</span>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <%= link_to new_surgery_location_path do %>
+         <i class="fit-right sur_lction_font fa fa-plus-circle"></i>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <% @surgery_locations.each do |location|%>
+      <div class="sur_lction_pding"></div>
+      <div class="sur_lction_nme_pding">
+        <p>
+          <%= location.name%>
+          <%= link_to edit_surgery_location_path(location) do %>
+            <i class="fa fa-pencil-square-o pull-right"></i>
+          <%end%>
+        </p>
+      </div>
+      <div class="sur_lction_adres_pding">
+        <p><%= location.address%>
+          <i class="fa fa-map-marker pull-right"></i>
+        </p>
+      </div>
+      <div class="sur_lction_phne_pding">
+        <p> 
+          <i class="fa fa-phone pull-left"></i> 
+          <%= location.phone%>
+        </p>
+      </div>
+    <%end%>
+  </div><br>
+</div>
+

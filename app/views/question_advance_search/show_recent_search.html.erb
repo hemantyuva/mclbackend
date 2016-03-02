@@ -1,0 +1,6 @@
+<div class="question-recent-keywords">
+	<%@recent_search_term.each do |term|%>
+		<p><%=link_to term,search_questions_question_advance_search_index_path(:searchterm =>term), remote: true%>
+		</p>
+	<%end%>
+</div>

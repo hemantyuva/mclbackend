@@ -1,0 +1,43 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to user_profile_data_profile_path(@associate_user) do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;My Profile Data</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">Address</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4></h4>
+    </div>
+  </div>
+</div>
+</div><br>
+<div class="prfle-adres-pading"></div>
+<div class="col-md-8 col-md-offset-2 col-xs-12 text-center ">
+	<%= nested_form_for @profile_setting ,url: update_address_profile_path(@associate_user), method: "post" do |f| %>
+		<%= f.fields_for :addresses do |address| %>
+			<%if address.object.address_type.nil? || address.object.address_type== params[:type]%>
+	  			<div class="col-md-4 col-xs-5 no-padding">
+	  				<%= address.label :address_location, (params[:type] == "work" ? "Work Address" : "Home Address") %>
+	  			</div>
+	  			<div class="col-md-6 col-xs-5 no-padding">
+	  				<%= address.text_area :address_location %>
+	  				<%= address.hidden_field :address_type, :value =>params[:type] %>
+	  			</div>
+			    <div class="col-md-2 col-xs-2">
+			    	<%= address.link_to_remove "-" , class: "remove-option" %>
+			    </div>
+			<%end%>
+		<% end %>
+		<%= hidden_field_tag :address_type,params[:type] %>
+		<%= f.link_to_add "+", :addresses, class: "add more add-option" %>
+		<%= f.submit "Update address",class: "btn-success btn"%>
+	<% end %>
+</div>
+
+

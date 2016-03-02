@@ -1,0 +1,44 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to user_app_data_profile_path(current_user) do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">My App data</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">Anaesthetists</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>
+        <span class="pull-right">
+          <%= link_to anaesthetists_manage_assistants_path do %>
+            <i class="mange-assitant-plus fa fa-plus-circle"></i>
+          <%end%>
+        </span>
+      </h4>
+    </div>
+  </div>
+</div>
+</div><br>
+<div class="clearfix"></div>
+<div class="sury-name-list"></div>
+<div class="mange-asitant-nme">
+  <% @anaesthetists.each do |anaesthetist|%>
+    <p>
+       <%= anaesthetist%>
+       <span class="pull-right">
+          <%#= link_to edit_manage_assistant_path(assistant) do%>
+            <!-- <i class="mange-assitant-icon fa fa-pencil-square-o"></i> -->
+          <%#end%>
+          <%#= link_to manage_assistant_path(assistant),method: :delete do %>
+             <!-- <i class="mange-assitant-icon fa fa-trash-o"></i> -->
+          <%#end%>
+       </span>
+    </p>
+  <%end%>
+</div>
+<div class="mange-asitant-pading"></div>
+

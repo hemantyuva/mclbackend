@@ -1,0 +1,7 @@
+<li>
+   <div class="col-md-5 col-xs-6">
+    <%=@field.field_name%>
+   </div>
+   <%= check_box_tag 'user_form[form_fields][]',@field.id,
+    true %>
+</li>

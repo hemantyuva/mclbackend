@@ -1,0 +1,46 @@
+<div id="partial_case_destroy">
+<div class="row">
+  <div class="col-md-12">
+    <div class="timeline-txt">
+        <span class="tmline-txt-clr"><%= @surgery_case.patient.full_name%></span><br>
+        <span class="tmline-txt-dnse"><%= @surgery_case.diagnose_name%></span><br>
+        <span class="tmline-dt-txt"><%= case_datum_format(@surgery_case.schedule.schedule_date)%></span>
+    </div>
+      <ul class="nav-list-box">
+        <li>
+            <div class="round-box"><i class="fa fa-envelope-o"></i></div>
+            <%=link_to "SHARE TIMELINE",share_timeline_case_case_media_path(:format => "pdf"),target: "_blank"%>
+        </li>
+        <li>
+           <div class="round-box"><i class="fa fa-comment-o"></i></div>
+           <%= link_to "SHARE MEDIA","#"%>
+        </li>
+        <% if session[:edit_right].nil? || session[:edit_right]%>
+          <li>
+            <div class="round-box"><i class="fa fa-picture-o"></i></div>
+            <%= link_to "ADD MEDIA",new_case_case_medium_path(@surgery_case) %>
+          </li>
+          <li>
+            <div class="round-box"><i class="fa fa-file-text-o"></i></div>
+            <%= link_to "ADD NOTE",new_case_case_note_path(@surgery_case)%>
+          </li>
+        <%else%>
+          <li>
+            <div class="round-box"><i class="fa fa-picture-o"></i></div>
+            <%= link_to "ADD MEDIA","#",id: "add_media"%>
+          </li>
+          <li>
+            <div class="round-box"><i class="fa fa-file-text-o"></i></div>
+            <%= link_to "ADD NOTE","#",id: "add_note"%>
+          </li>
+        <%end%>
+      </ul>        
+  </div>
+</div>
+<div class="media-cunt">
+  <span class="cse-txt-etry col-md-5 col-offset-md-5"><%= case_entries_count(@surgery_case)%> ENTRIES</span>
+  <span class="cse-txt-mda col-md-4"><%= @surgery_case.case_media.count%> MEDIA</span>
+  <span class="cse-txt-nte"><%= @case_notes.count%> NOTES</span>
+</div>
+</div>
+<%= render 'case_activitites'%>

@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4>          
+          <%= link_to tag_setting_settings_path do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">Tags Setting</i>
+          <%end%>
+        </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+        <h4 class="text-center">MediaTag Setting</h4>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4></h4>
+      </div>
+    </div>
+  </div>
+</div><br>
+
+<div class="sur_lction_pding"></div><br>
+<div class="clearfix"></div>
+  <div class="form-horizontal">
+    <div class="">
+      <div class="col-md-12">
+      	<%= form_for @media_tag_setting, :url => set_media_tag_tag_settings_path, :method => :get do |f|%>
+         <div class="form-group">
+         	<%= f.label :media_tag_limit,"Media Tag Limit",class: "control-label col-sm-2 col-xs-4 col-md-2" %>
+            <div class="col-sm-10 col-xs-8  col-md-8  clear-box">
+              <%= f.range_field :media_tag_limit, :class => '',placeholder: "media tag limit" %>
+            </div>&nbsp;
+              <%= f.submit "Save",class: "btn btn-success"%>
+            </div>
+          </div>
+      	<%end%>
+      	</div>
+    </div>
+  </div>
+
+
+
+
+
+

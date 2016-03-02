@@ -1,0 +1,73 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to settings_path do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Settings</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">Color Palette Settings</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4></h4>
+    </div>
+  </div>
+</div>
+</div><br>
+<div class="clearfix"></div>
+<div class="colr-plte-pading">Select color palette for app</div>
+<div class="color-plte-padding"><br>
+  <ul>
+    <li>
+      <span class="red-pading"></span>&nbsp;&nbsp;Default Red
+      <% if !(@type_app_color.nil?) &&( @type_app_color == "#E63349" ) %>
+        <i class="clr-btn-check fa fa-check-circle-o"></i>
+      <%else%>
+        <%= link_to set_app_color_settings_path(color: "#E63349") do %>
+            <i class="fa fa-check-circle-o"></i>
+        <%end%>
+      <%end%>
+    </li>
+    <li>
+      <span class="green-pading"></span>&nbsp;&nbsp;Soothing Green
+      <% if !(@type_app_color.nil?) &&( @type_app_color == "#008A52" ) %>
+        <i class="clr-btn-check fa fa-check-circle-o"></i>
+      <%else%>
+        <%= link_to set_app_color_settings_path(color: "#008A52") do %>
+            <i class="fa fa-check-circle-o"></i>
+        <%end%>
+      <%end%>
+    </li>
+    <li>
+      <span class="blue-pading"></span>&nbsp;&nbsp;Cool Blue
+      <% if !(@type_app_color.nil?) &&( @type_app_color == "#0099D3" ) %>
+        <i class="clr-btn-check fa fa-check-circle-o"></i>
+      <%else%>
+        <%= link_to set_app_color_settings_path(color: "#0099D3") do %>
+            <i class="fa fa-check-circle-o"></i>
+        <%end%>
+      <%end%>
+    </li>
+    <li>
+      <span class="purple-pading"></span>&nbsp;&nbsp;Energetic Purple
+      <% if !(@type_app_color.nil?) &&( @type_app_color == "#9632E7" ) %>
+        <i class="clr-btn-check fa fa-check-circle-o"></i>
+      <%else%>
+        <%= link_to set_app_color_settings_path(color: "#9632E7") do %>
+            <i class="fa fa-check-circle-o"></i>
+        <%end%>
+      <%end%>
+    </li>
+  </ul>
+
+  <div class="colr-plte-instr-pding">
+    <p>Colors Palette System</p>
+    <p>1. Primary background color</p>
+    <p>2. Secondary background color - lighter shade of 1</p>
+    <p>3. Primary Text Heighlight color</p>
+  </div>
+</div>
+

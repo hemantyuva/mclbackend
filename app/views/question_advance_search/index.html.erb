@@ -1,0 +1,30 @@
+<div class="clearfix"></div>
+<div class="col-md-12 clear-box icon-text-field">
+  <span><i class="fa fa-search search-icon"></i></span>
+  <%= text_field_tag :advance_search_question,nil,placeholder: "search question",class: "add-schdle-txt form-control"%>
+</div>
+
+<div class="col-md-12 clear-box icon-text-field">
+  <div class="col-sm-12 col-xs-12 col-md-12 clear-box">
+    <ul class="nav nav-tabs advance-tabs-nav">
+      <li class="active"><a id="question_recent_search" data-toggle="tab" href="#question-recent-search">Recent Search </a></li>
+      <li><a id="question_saved_search" data-toggle="tab" href="#question-saved-search">Saved Search</a></li>
+      <li><a id="question_complex_search" data-toggle="tab" href="#question-complex-search">Complex Search</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="question-recent-search" class="tab-pane fade in active question_search_results">
+        <div class="question-recent-keywords">
+          <%@recent_search_term.each do |term|%>
+            <p><%=link_to term,search_questions_question_advance_search_index_path(:searchterm =>term), remote: true%>
+            </p>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

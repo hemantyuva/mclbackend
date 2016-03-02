@@ -1,0 +1,90 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-md-6 col-md-offset-3">
+      <center><%= select_tag :search_options, options_for_select([["Search Cases","cases"],["Search Media","media"]]),class: "new-select-top" %>
+      </center>
+    </div>
+  </div>  
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12">
+  <%=link_to "Advance search",advance_search_search_index_path,class: "advance-search-click"%>
+</div>
+<div class="col-md-12  icon-text-field">
+  <span id="icon_change"><i class="fa fa-search search-icon"></i></span>
+  <%= text_field_tag :case_search,nil,placeholder: "search cases",class: "add-schdle-txt form-control"%>
+</div>
+<div class="col-md-12  search_results_count clear-box">
+  <div class="search-cases">
+    <center>Search by name,diagnosis,surgery,note or any tag</center>
+  </div>
+</div>
+<div class="col-md-12 clear-box icon-text-field">
+  <div class="col-sm-12 col-xs-12 col-md-12 search_results">
+    <%#= render "search/search_cases" %>
+    <div class=" cases-tabel">
+      <% @cases.each do |surgery_case|%>
+        <div class="head" id="head-new">
+        <div class="col-md-2 col-xs-3 col-sm-3 clear-box">
+        <div class="date-details">
+          <span class="case-month">
+            <%=surgery_case.surgery_date.strftime("%b %d")%>
+          </span>
+          <span class="case-weeks">
+            <%=schedule_days(surgery_case.surgery_date.to_date)%>
+          </span>
+          <span class="case-days">days</span>
+          </div>
+        </div>
+        <div class="col-md-9 col-xs-7 col-sm-8">
+        <div class="head-right">
+        <h3 class="patient_name">
+          <%=link_to surgery_case.patient.full_name, case_path(surgery_case.id)%></h3>
+          <span style="color: #e03347;"><%=surgery_case.side%></span>
+          <span><%= surgery_case.diagnose_name %></span>
+          <span><%= surgery_case.surgery_name %></span>
+          </div>
+        </div>
+        <div class="col-md-1 col-xs-1 col-sm-1">
+          <%=link_to "#-", class: "action-batton",:data =>  surgery_case.id do %>
+            <i class="fa fa-ellipsis-h"></i>
+          <%end%>
+        </div>
+        </div>
+       <div class="clearfix"></div>
+        <div class="case-timeline-options" style="display:none;" id="<%=surgery_case.id%>">
+        <div class="row"><div class="arrow-down"></div></div>
+          <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+            <div class="round-box"><i class="fa fa-rss"></i></div>
+             <%=link_to "TIMELINE",case_case_media_path(surgery_case)%>
+          </div>
+          <% if session[:edit_right].nil? || session[:edit_right]%>
+            <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+              <div class="round-box"><i class="fa fa-picture-o"></i></div>
+              <%= link_to "ADD MEDIA",new_case_case_medium_path(surgery_case)%>
+            </div>
+            <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+             <div class="round-box"><i class="fa fa-file-text-o"></i></div>
+              <%= link_to "ADD NOTE",new_case_case_note_path(surgery_case)%>
+            </div>
+          <%else%>
+            <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+              <div class="round-box"><i class="fa fa-picture-o"></i></div>
+              <%= link_to "ADD MEDIA","#",id: "add_media"%>
+            </div>
+            <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+             <div class="round-box"><i class="fa fa-file-text-o"></i></div>
+              <%= link_to "ADD NOTE","#",id: "add_note"%>
+            </div>
+          <%end%>
+          <div class="col-md-3 clear-box  col-xs-3 col-sm-3">          
+            <div class="round-box"><i class="fa fa-male"></i></div>
+            <%= link_to "PATIENT",patient_path(surgery_case.patient)%>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+<div style="clear:both;"></div>
+

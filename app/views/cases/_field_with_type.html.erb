@@ -1,0 +1,75 @@
+<% case  @field.field_type %>
+	<% when 'select' %>
+		<div class="form-group test">
+			<%= label_tag @field.field_name,nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+			<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+				<%= select_tag "fields[#{@field.field_name}]", options_from_collection_for_select(@field.field_options, "id", "option_text", default_dropdown_value((@case.form_value(@field.field_name) rescue nil))),{multiple: @field.try(:multiple),class: "form-control"} %>
+			</div>
+		</div>
+	<% when 'text' %>
+		<div class="form-group">
+			<%= label_tag @field.field_name,nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+			<div class="col-sm-10 col-xs-8  col-md-9 clear-box">
+				<%= text_field_tag "fields[#{@field.field_name}]" ,(@case.form_value(@field.field_name) rescue nil), class: "form-control",:required => @field.try(:required)%>
+			</div>
+		</div>
+	<% when 'textarea' %>
+		<div class="form-group">
+			<%= label_tag @field.field_name,nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+			<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+				<%= text_area_tag "fields[#{@field.field_name}]",(@case.form_value(@field.field_name) rescue nil),class: "form-control",:required => @field.try(:required) %>
+			</div>
+		</div>
+	<% when 'radio' %>
+		<div class="form-group test">
+			<%= label_tag @field.field_name,nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+			<div class="col-sm-10 col-xs-8  col-md-9  default-radio-option">
+				<%if !@field.try(:multiple)%>
+					<% @field.field_options.each do |option|%>
+						<div class="col-sm-10 col-xs-8  col-md-2">   
+				            <%=radio_button_tag "fields[#{@field.field_name}]",option.option_text,default_radio_option((@case.form_value(@field.field_name) rescue nil),option),class: ""%>
+				            <%=option.option_text%>
+				        </div>
+		       		<%end%>
+		       	<%else%>
+		       		<% @field.field_options.each_with_index do |option,index|%>
+						<div class="col-sm-10 col-xs-8  col-md-2">   
+				            <%=check_box_tag "fields[#{@field.field_name}][]",option.option_text, default_checkbox_option((@case.form_value(@field.field_name) rescue nil),option) %>
+				            <%=option.option_text%>
+				        </div>
+		       		<%end%>
+		       	<%end%>
+       		</div>
+       	</div>
+    <% when 'date' %>
+    	<div class="form-group">
+			<%= label_tag @field.field_name,nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+			<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+				<%= text_field_tag "fields[#{@field.field_name}]",(@case.form_value(@field.field_name) rescue nil),class: "form-control case_form_datepicker",:required => @field.try(:required)%>
+			</div>
+		</div>
+	<% when 'time' %>
+    	<div class="form-group">
+			<%= label_tag @field.field_name,nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+			<div class="col-sm-10 col-xs-8  col-md-9 clear-box">
+				<%= datetime_field_tag "fields[#{@field.field_name}]",(@case.form_value(@field.field_name) rescue nil),class: "form-control case_form_timepicker",:required => @field.try(:required)%>
+			</div>
+		</div>
+	<% when 'number' %>
+    	<div class="form-group">
+			<%= label_tag @field.field_name,nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+			<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+				<%= number_field_tag "fields[#{@field.field_name}]",(@case.form_value(@field.field_name) rescue nil),class: "form-control",:required => @field.try(:required), "min"=>"0" %>
+			</div>
+		</div>
+<% end %>
+
+<script type="text/javascript">
+	// case form datetimepicker
+	$('.case_form_datepicker').datetimepicker({
+		format: 'DD/MM/YYYY',
+	});
+	$('.case_form_timepicker').datetimepicker({
+	    format: 'LT'
+	});
+</script>

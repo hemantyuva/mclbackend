@@ -1,0 +1,22 @@
+<div class="ssn-tab">
+	<div class="col-md-3 col-xs-4 col-sm-4 no-padding ">
+		<div class="image">
+			<%= link_to show_user_profile_profiles_path(id:@associate_user.id) do %>
+            	<%= user_image @associate_user%>
+          	<% end %>
+		</div>
+		<span class="sub-text-2"><%=@associate_user.scn_score%></span>
+		<span class="sub-text">scns</span>
+	</div>
+	<div class="col-md-9 col-xs-8 col-sm-8 no-padding">
+		<ul id="scn_tabs">
+			<li>
+				<%= link_to "My Questions", my_scn_questions_path, remote: true,class: "active"%></li>
+			<li>
+				<%= link_to "My Answers","#-", id: "show_answer" %></li>
+		</ul>
+	</div>
+</div>
+<div id ="show_question_answer">
+	<%=render "questions/my_scn_questions"%>
+</div>

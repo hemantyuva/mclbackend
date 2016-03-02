@@ -1,0 +1,190 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="top-header">
+			<div class="col-sm-3 col-xs-3 col-md-3">
+				<h4><%= link_to "Cancel",schedules_path,class: "fit-left"%></h4>
+			</div>
+			<div class="col-sm-6 col-xs-6 col-md-6">
+				<h4 class="text-center"><%= params[:action] == "edit" ? 'Edit Schedule' : 'Add Schedule'%></h4>
+			</div>
+			<div class="col-sm-3 col-xs-3 col-md-3">
+				<%if params[:action] != "edit" %>
+					<h4><a data-toggle="modal" class="fit-right" data-target="#openModal">Done</a></h4>
+				<%else%>
+					<h4><%= link_to "Done","#",class: "fit-right submit-my-form"%></h4>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="add-case-patient-view">
+			<% if !@patient.nil? %>
+				<span class="add-case-patient-text"><%=link_to @patient.full_name, patient_path(@patient)%></span><br>
+				<span class="add-case-patient-text1"><%= patient_dob(@patient.dob) %> yr <%= @patient.gender.first %><br>
+				DOB - <%= @patient.dob.to_natural.upcase %></span>
+			<%end%>
+		</div>
+		<div class="schedule-txt">
+				<h4>SCHEDULED ON</h4>
+		</div>
+	  <% if params[:action] == "edit" %>
+			<ul class="date-and-month">
+				<li class="date-1">
+					<span class="date-box">
+						<%= schedule_week(@case.schedule.schedule_date) %>
+					</span>
+					<span>
+						<%= schedule_month(@case.schedule.schedule_date) %>
+						<%= schedule_date(@case.schedule.schedule_date) %>
+					<span>
+				</li>
+				<li>
+					<div class="date-text">
+						<%= schedule_hour(@case.schedule.schedule_date) %>	
+					</div>
+				</li>
+				<li>
+					<div class="date-text">
+						<%= schedule_min(@case.schedule.schedule_date) %>	
+					</div>
+				</li>
+				<li>
+					<div class="date-text">
+						<%= schedule_notation(@case.schedule.schedule_date) %>
+					</div>
+				</li>
+			</ul>		
+		<% end %>
+		<div class="form-horizontal">
+			<div class="row">
+				<div class="col-md-12">
+					<%= form_for (@case), :html=>{:class=>"edit_case my-form"} do |surgery_case|%>
+						<%= surgery_case.hidden_field :patient_id, value: @patient.id %>
+
+				 		<% if params[:action] != "edit" %>
+							<div class="form-group">
+								<%= label_tag "CASE TEMPLATE",nil,class: "control-label col-sm-2 col-xs-4 col-md-2"%>
+								<div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+									<%=select_tag "user_form_id", options_for_select(current_user.user_forms.where(form_type: "surgery").pluck(:form_name,:id)), prompt: "Select", class: "form-control"%>
+								</div>
+							</div>
+						<%end%>
+
+						<div class="form-group">
+							<%= surgery_case.label :diagnose_name,"DIAGNOSIS",class: "control-label col-sm-2 col-xs-4 col-md-2" %>
+							<div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+								<%= surgery_case.text_field :diagnose_name,id: "diagnose-name-tags",placeholder: "Search Diagnose",class: "form-control"%>
+							</div>
+						</div>
+						<div class="form-group">
+							<%= surgery_case.label :surgery_name, "SURGERY",class: "control-label col-sm-2 col-xs-4 col-md-2"%>
+							<div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+								<%= surgery_case.text_field :surgery_name,id: "surgery-name-tags",placeholder: "Search Surgery",class: "form-control"%>
+							</div>
+						</div>
+						<div class="form-group">
+							<%= surgery_case.label :side, "SIDE",class: "control-label col-sm-2 col-xs-4 col-md-2"%>
+							<div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+								<%= surgery_case.select :side,[["Left","L"],["Right","R"], ["Bilateral","B"],["NA","N"]],{prompt: "Select"}, {class: "form-control"} %>
+							</div>
+						</div>
+						<%= surgery_case.fields_for :schedule do |schedule| %>
+							<div class="form-group">
+			  				<%= schedule.label :schedule_date,"DATE",class: "control-label col-sm-2 col-xs-4 col-md-2" %>
+				  			<div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+					  			<% if @case.schedule.schedule_date.present? %>
+					  				<%= schedule.text_field :schedule_date,class: "form-control",id: "edit_schedule_datepicker",value: schedule_date_format(@case.schedule.schedule_date) %>
+					  			<%else%>
+					  				<%= schedule.text_field :schedule_date,class: "form-control",id: "schedule_datepicker" %>
+					  			<%end%>
+				  			</div>
+				  		</div>
+				    	<div class="form-group">
+					    	<%= schedule.label :surgery_location_id,"LOCATION",class: "control-label col-sm-2 col-xs-4 col-md-2" %>
+					    	<div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+					    		<%= schedule.collection_select :surgery_location_id, current_user.setting.try(:surgery_locations).to_a, :id, :name, {prompt: "Select"}, {class: "form-control"} %>
+					    	</div>
+					    </div>
+				 		<% end %>
+				 		<!--<div id="case_tempate">
+						</div> -->
+						<div class="color-add color-add-no-border">
+							<span class="add-new-patient fa fa-plus-circle"></span>
+								<a data-toggle="modal" class="patient-add-btn" data-target="#myModal">Add New Location</a>
+						</div>
+						<%=hidden_field_tag "no_button"%>
+						<input type="submit" id="submit-my-form" style="display:none;">	
+					<%end%>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- Add NewLocation Modal Start -->
+		<div class="modal fade" id="myModal" role="dialog">
+		  <div class="modal-dialog custom-dialog-modal">
+		  <!-- NewLocation content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Add New Location</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<%= form_tag surgery_locations_path(url: "schedule"), remote: true do %>
+		      		<div class="form-group">
+		      			<%= label_tag :name,"Surgery Location" %>
+		      			<%= text_field_tag :name,nil,class: "form-control remove-ch",placeholder: "Enter surgery location"%>
+		      		</div>
+
+		      		<div class="form-group">
+		      			<%= submit_tag "ADD",class: "surger_location_submit btn btn-success model-add"%>
+		      		</div>
+		      	<%end%>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Add NewLocation Modal End -->
+
+		<!-- Modal Start -->
+		<div class="modal fade" id="openModal" role="dialog">
+		  <div class="modal-dialog custom-dialog-modal">
+	      <!-- new template content-->
+	      <div class="modal-content new-template-pop-up">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Add details to the case</h4>
+	        </div>
+	       	<div class="modal-body">
+            <center>
+            	<%= link_to "Yes","#",class: "btn btn-success model-add submit-my-form"%>
+            	<%= link_to "No","#",class: "btn btn-success  model-add submit-no-form"%>
+            </center>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+		  </div>
+		</div>
+		<!-- Modal End -->
+	</div>
+</div>
+
+<script>
+	// $('#user_form_id').on('change invalid', function() {
+	//     var textfield = $(this).get(0);
+	//     textfield.setCustomValidity('');
+	//     if (!textfield.validity.valid) {
+	//       textfield.setCustomValidity("Please select a case template before creating a case");  
+	//     }
+	// });
+</script>

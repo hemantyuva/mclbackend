@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4>          
+          <%= link_to diagnosis_name_list_profiles_path do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">Diagnosis Name</i>
+          <%end%>
+        </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+        <h4 class="text-center">Edit Diagnosis Name</h4>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4><%= link_to "Done","#",class: "pull-right submit-diagnose-form"%>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+  <div class="form-horizontal">
+    <div class="">
+      <div class="col-md-12 loction_frm_clr">
+        <%= form_for @diagonse,:html => { :class => "form-horizontal manage_diagnose-form" },:url=> update_diagnose_name_profile_path,:method=>"post" do |f| %>
+          <div class="form-group">
+            <div class="col-sm-10 col-xs-8  col-md-12  clear-box">
+              <%= f.text_field :name, :class => 'form-control' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>

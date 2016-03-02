@@ -1,0 +1,55 @@
+<div class=" cases-tabel">
+  <% @cases.each do |surgery_case|%>
+  <div class="head" id="head-new">
+    <div class="col-md-2 col-xs-3 col-sm-3 clear-box">
+    <div class="date-details">
+      <span class="case-month">
+        <%=surgery_case.surgery_date.strftime("%b %d")%>
+      </span>
+      <span class="case-weeks">
+        <%=schedule_days(surgery_case.surgery_date.to_date)%>
+      </span>
+      <span class="case-days">days</span>
+      </div>
+    </div>
+    <div class="col-md-9 col-xs-7 col-sm-8">
+    <div class="head-right">
+    <h3 class="patient_name">
+      <%=link_to surgery_case.patient.full_name, case_path(surgery_case.id)%></h3>
+      <span style="color: #e03347;"><%=surgery_case.side%></span>
+      <span><%= surgery_case.diagnose_name %></span>
+      <span><%= surgery_case.surgery_name %></span>
+      </div>
+    </div>
+    <div class="col-md-1 col-xs-1 col-sm-1">
+      <%=link_to "#-", class: "action-batton",:data =>  surgery_case.id do %>
+        <i class="fa fa-ellipsis-h"></i>
+      <%end%>
+    </div>
+    </div>
+   <div class="clearfix"></div>
+    <div class="case-timeline-options" style="display:none;" id="<%=surgery_case.id%>">
+    <div class="row"><div class="arrow-down"></div></div>
+      <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+        <div class="round-box"><i class="fa fa-rss"></i></div>
+         <%=link_to "TIMELINE",case_case_media_path(surgery_case)%>
+      </div>
+      <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+        <div class="round-box"><i class="fa fa-picture-o"></i></div>
+        <%= link_to "ADD MEDIA",new_case_case_medium_path(surgery_case)%>
+      </div>
+      <div class="col-md-3 clear-box col-xs-3 col-sm-3">
+       <div class="round-box"><i class="fa fa-file-text-o"></i></div>
+        <%= link_to "ADD NOTE",new_case_case_note_path(surgery_case)%>
+      </div>
+      <div class="col-md-3 clear-box  col-xs-3 col-sm-3">          
+        <div class="round-box"><i class="fa fa-male"></i></div>
+        <%= link_to "PATIENT",patient_path(surgery_case.patient)%>
+      </div>
+    </div>
+  <%end%>
+  <% if @case_search==true %>
+    <div style="text-align: center;"><%= will_paginate @cases %></div>
+  <% end %>
+</div>
+

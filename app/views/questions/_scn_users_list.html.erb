@@ -1,0 +1,41 @@
+<div class="scn-members-list">
+<div class="col-md-12">	
+	<div class="questions-tags scn-member-header">
+		<div class="col-md-9 col-xs-8 clear-box">
+			SCN: <span class="q-tags">Members</span>
+		</div>
+		<div class="col-md-3 col-xs-4 clear-box">
+			<div class="ques-count-right">
+				<span class="q-tags"><%=@users.count%></span> Active
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-12">
+	<% @users.each do |user|%>
+		<div class="qa-content">
+			<div class="ssn-tab question-mem-tab">
+				<div class="col-md-2 col-xs-3 col-sm-2 question-tab-image no-padding ">
+					<div class="image">
+						<%= link_to show_user_profile_profiles_path(id:user.id) do %>
+            				<%= user_image user%>
+          				<% end %>
+					</div>
+					<p class="text-center"><%=user.scn_score%></p>
+				</div>
+				<div class="col-md-9 col-xs-8 no-padding">
+					<%= link_to show_user_profile_profiles_path(id:user.id) do %>
+						<h3><b><%= user.name.upcase %></b></h3>
+					<%end%>
+					<h4>Orthopedics</h4>
+					<p>New Delhi, India</p>
+				</div>
+				<div class="col-md-1 col-xs-1 no-padding">
+					<i class="fa fa-angle-right pull-right"></i>
+				</div>
+			</div>	
+		</div>
+	<%end%>
+</div>
+<div style="text-align: center;"><%= will_paginate @users %></div>
+</div>

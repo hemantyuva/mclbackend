@@ -1,0 +1,3 @@
+<%@saved_search_term.each do |term|%>
+	<p><%=link_to term.search_term,media_search_media_path(:searchterm =>term.search_term), remote: true%></p>
+<%end%>

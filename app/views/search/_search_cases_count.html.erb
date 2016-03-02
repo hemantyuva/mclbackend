@@ -1,0 +1,4 @@
+<div class="search-top-head">
+	<div class="col-md-6 col-sm-6 col-xs-6"><div class=" media-result-count"><%=@cases.count%></div> <b style="color:#989898;">results</b></div>
+	<div class="col-md-6 col-sm-6 col-xs-6 text-right"><%= select_tag :sort_cases, options_for_select([ ["LAST WEEK","last_week"],["LATEST","latest"],["OLDEST","oldest"]],"LASTWEEK"),class: "new-select-right"%></div>
+</div>	

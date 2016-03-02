@@ -1,0 +1,40 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-5">
+     <h4>
+        <%= link_to settings_path do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Settings</i>
+        <%end%>
+     </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-4">
+      <span class="cse-shw-dte">Media Upload Settings</span>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+    </div>
+  </div>
+</div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="sur_lction_pding"></div>
+      <div class="sur_lction_nme_pding">
+        <p>
+          Max size for media upload
+<!--           <span class="pull-right">64 MB</span>
+ -->
+          <%= link_to media_upload_limit_settings_path do %>
+            <i class="fa fa-pencil-square-o pull-right"></i>
+          <%end%>
+        </p>
+        <div> 
+          <% if !@media_upload.nil? %>
+            <%= @media_upload.media_upload_limit%>
+            MB
+          <%end%>
+        </div> 
+      </div>
+  </div>
+</div>

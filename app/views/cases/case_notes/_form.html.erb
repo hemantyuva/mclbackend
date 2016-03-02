@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4><%= link_to "Cancel",case_case_media_path(@surgery_case),class: "fit-left"%></h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+        <h4 class="text-center"><%= @surgery_case.diagnose_name %></h4>
+        <h4 class="tmline-dt-txt text-center"><%= case_datum_format(@surgery_case.schedule.schedule_date) %></h4>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <% if params[:action] == "edit"%>
+          <h4><%= link_to "Edit","#",class: "fit-right submit-note-form"%>
+        <%else%>
+          <h4><%= link_to "Add","#",class: "fit-right submit-note-form"%>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="form-horizontal">
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_for [@surgery_case,@case_note], :html => { :multipart => true,class: "edit_case case-note_form" } do |f|%>
+        <%= f.hidden_field :case_id, value: params[:case_id] %>
+        <% if params[:action] != "edit" %>
+          <div class="form-group">
+            <%= label_tag "FOLLOW UP TEMPLATES",nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+            <div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+              <%=select_tag "user_followup_form_id", options_for_select(current_user.user_forms.where(form_type: "followup").pluck(:form_name,:id)), prompt: "Select", class: "form-control"%>
+            </div>
+          </div>
+        <%end%>
+        <div class="form-group">
+          <%= f.label :note,"NOTE",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+          <div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+            <%= f.text_field :note,class: "form-control"%>
+          </div>
+        </div>
+        <div id="note_tempate">
+          <% if params[:action] == "edit"%>
+            <%if @case_note.user_form_fields.present?%>
+              <div class="case_form_fields">
+                <%@case_note.user_form_fields.each do |id|%>
+                  <% @field = UserField.find(id) %>
+                  <%= render 'note_field_with_type'%>
+                <%end%>
+              </div>
+            <%end%>
+          <%end%>
+        </div>
+        <input type="submit" id="submit-note-form" style="display:none;">
+      <%end%>
+    </div>
+  </div>
+</div>
+ 

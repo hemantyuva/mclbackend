@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4>          
+          <%= link_to user_app_data_profile_path(current_user) do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">App data</i>
+          <%end%>
+        </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+        <h4 class="text-center">Associate</h4>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <%= link_to add_associates_path do %>
+          <i class="list-plus-circle fa fa-plus-circle pull-right"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div><br>
+<div class="clearfix"></div>
+<div class="invitees-top"></div>
+<div class="invitees-list">
+  <%@associates.each do |associate|%>
+    <%user = User.find_by(email: associate.recipient_email) rescue nil%>
+    <%if user.present?%> 
+      <div class="col-md-10">
+        <%=user.name%>
+      </div>
+      <div class="col-md-2">
+        <%if associate.status == nil%>
+          <span class="pending">pending</span>
+        <%elsif associate.status%>
+          <span class="accept">active</span>
+        <%else%>
+          <span class="reject">rejected</span>
+        <%end%>
+          <span class="pull-right">
+          <%= link_to associate_path(associate,user_id: user.id) do%>
+            <i class="fa fa-chevron-right"></i>
+          <%end%>
+        </span>
+      </div>
+    <%end%>
+  <%end%>
+</div>
+
+
+
+

@@ -1,0 +1,104 @@
+<div id="container-tags" style="height: 300px"></div>
+
+
+<%if params[:graph_resource] !="line"%>
+<script type="text/javascript">
+
+$(function () {
+    var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container-tags',
+            type: 'column'
+        },
+        title: {
+            text: 'Case Report'
+        },
+        xAxis: {
+            categories: <%= raw @cases_dates.to_json %>,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'No of Cases'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+        series: {
+        cursor: 'pointer',
+        point: {
+        events: {
+          click: function() {
+            for (var i = 0; i < this.series.data.length; i++) {
+              this.series.data[i].update({ color: '#e03347' }, true, false);
+                }
+              window.location.href = "/graphs/show_cases?date="+this.category
+            }
+          },
+         }
+        }
+        },
+        series: <%= raw @tags_cases_count.to_json %>
+    });
+});
+
+</script>
+<%else params[:graph_resource] =="line"%>
+
+<script type="text/javascript">
+$(function () {
+    var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container-tags',
+            type: 'line'
+        },
+        title: {
+            text: 'Case Report'
+        },
+        xAxis: {
+            categories: <%= raw @cases_dates.to_json %>,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'No of Cases'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+        series: {
+        cursor: 'pointer',
+        point: {
+        events: {
+          click: function() {
+            for (var i = 0; i < this.series.data.length; i++) {
+              this.series.data[i].update({ color: '#e03347' }, true, false);
+                }
+              window.location.href = "/graphs/show_cases?date="+this.category
+            }
+          },
+         }
+        }
+        },
+        series: <%= raw @tags_cases_count.to_json %>
+    });
+});
+
+</script>
+<%end%>

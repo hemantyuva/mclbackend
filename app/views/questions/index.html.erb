@@ -1,0 +1,32 @@
+<div class="header-question">
+  <div class="advance-search-link">
+    <%=link_to "Advance search",question_advance_search_index_path, style: "color: #fff;"%>
+  </div>
+	<p><span id="question_icon_change"><i class="fa fa-search question-search-icon"></i></span><%= text_field_tag :question_search, "", class: 'form-control question-field',placeholder: "search"%></p>
+	<div class="">
+    <div class="">
+      <div class="panel" id="questions-tabs">
+        <div class="panel-heading">
+          <ul class="nav nav-tabs">
+            <li class="active"><a id="my_scn_tab" href="#my-scn-tab" data-toggle="tab">My SCN</a></li>
+            <li><a id="questions_tab" href="#questions-tab" data-toggle="tab">Questions</a></li>
+            <li><a id="ask_question_tab" href="#ask-question-tab" data-toggle="tab">Ask Question</a></li>
+            <li class="last-nav"><a id="filter_list" href="#filter-list" data-toggle="tab"><i class="fa fa-ellipsis-v"></i></a></li>
+          </ul>
+        </div>
+        <div class="panel-body">
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="my-scn-tab"></div>
+            <div class="tab-pane fade" id="questions-tab">
+              <%=render 'questions/question_show'%>
+            </div>
+            <div class="tab-pane fade" id="ask-question-tab">
+            </div>
+            <div class="tab-pane fade" id="filter-list">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

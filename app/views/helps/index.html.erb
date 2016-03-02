@@ -1,0 +1,113 @@
+<ul class="nav nav-tabs" id="admin_help_tabs">
+  <li class="active"><a data-toggle="tab" href="#help">Help</a></li>
+  <li><a data-toggle="tab" href="#about">About</a></li>
+  <li><a data-toggle="tab" href="#faq">FAQ</a></li>
+  <li><a data-toggle="tab" href="#contact">Contact</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="help" class="tab-pane fade in active">
+    <%= form_for(@help) do |f| %>
+      <div class="form-group">
+        <%= label_tag nil,"Add Help Video",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+        <%= f.label :title,"Title",class: "control-label col-sm-2 col-xs-4 col-md-1" %>
+          <div class="col-sm-10 col-xs-8  col-md-5  clear-box">
+           <%= f.text_field :title, :class => "form-control" %><br>
+          </div>
+       </div>
+       <div class="clearfix"></div>
+       <div class="form-group">
+            <%= label_tag nil,"",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+            <%= f.label :url,"URL",class: "control-label col-sm-2 col-xs-4 col-md-1" %>
+          <div class="col-sm-10 col-xs-8  col-md-5  clear-box">
+            <%= f.text_field :url, :class => 'form-control' %><br>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="action" style="text-align:center;">
+           <%= f.submit "Save",class: "btn help-submit"%>
+        </div>
+     <%end%>
+    <div></div><br>
+    <table class="table table-bordered">
+    <div class="admin-help-table">
+        <tr>
+          <th>Video Name</th>
+          <th>Thumbnails</th>
+          <!-- <th>Length(mins)</th> -->
+          <th width="30%">Actions</th>
+        </tr>
+        <% @helps.each do |url_help| %>
+          <tr>  
+            <td><%= url_help.title%></td>
+            <td>
+              <a class="thumbnail_youtube" href="<%= url_help.url%>" target="_blank"></a>
+            </td>
+           <!--  <td></td -->
+            <td><%= link_to 'Modify', edit_help_path(url_help) %> |
+            <%= link_to 'Delete', url_help, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </div>
+    </table>
+  </div>
+  <div id="about" class="tab-pane fade">
+    <%= form_for(@content) do |content| %>
+      <div class="form-group">
+        <div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+          <%= content.text_area :about_content, :class => 'abt-form-wdth form-control',placeholder: "Enter content",size: "30x10"%><br>
+          <div style="text-align: center;">
+            <%= content.submit "Save",class: "btn about-submit"%>
+            <%= link_to "Cancel",helps_path,class: "btn btn about-submit"%>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+  <div id="faq" class="tab-pane fade">
+    <%= form_for(@content) do |content| %>
+      <div class="form-group">
+        <div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+          <%= content.text_area :faq_content, :class => 'abt-form-wdth form-control',placeholder: "Enter content",size: "30x10"%><br>
+           <div style="text-align: center;">
+            <%= content.submit "Save",class: "btn about-submit"%>
+            <%= link_to "Cancel",helps_path,class: "btn btn about-submit"%>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+    <div id="contact" class="tab-pane fade">
+    <%= form_for(@content) do |content| %>
+      <div class="form-group">
+        <%= content.label :contact_address,"Address",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+        <div class="col-sm-10 col-xs-8  col-md-8  clear-box">
+          <%= content.text_field :contact_address ,class: "form-control"%><br>
+        </div>
+      </div>
+      <div class="form-group">
+          <%= content.label :contact_number,"Contact Number",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+        <div class="col-sm-10 col-xs-8  col-md-8  clear-box">
+          <%= content.text_field :contact_number ,class: "form-control",id: "contact_number"%><br>
+        </div>
+      </div>
+      <div class="form-group">
+         <%= content.label :email,"Email",class: "control-label col-sm-2 col-xs-3 col-md-3" %>
+        <div class="col-sm-10 col-xs-8  col-md-8  clear-box">
+          <%= content.email_field :email ,class: "form-control"%><br>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div style="text-align: center;">
+        <%= content.submit "Save",class: "btn about-submit"%>
+        <%= link_to "Cancel",helps_path,class: "btn btn about-submit"%>
+      </div>
+    <%end%>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  // var f_phone = new LiveValidation('contact_number');
+  //  f_phone.add( Validate.Presence );
+</script>

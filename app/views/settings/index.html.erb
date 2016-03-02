@@ -1,0 +1,155 @@
+<div class="col-md-12">
+  <div class="profile-setting">
+    <div class="col-md-2 col-xs-3 col-sm-2">
+      <div class="img-1">
+        <%= user_image @user%>
+      </div>
+    </div>
+    <div class="col-md-10 col-xs-9">
+      <h1><a href="<%= user_profile_data_profile_path(@user)%>">
+        Profile Settings</a></h1>
+    </div>
+    <div class="col-md-10 col-xs-9">
+      <h1><%= link_to "App data",user_app_data_profile_path(@user)%><h1>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="settings-links">
+    <div class="col-md-9 col-xs-8 col-sm-9 clear-box">
+      <a href="#">Storage used</a>
+    </div>
+    <div class="col-md-3 col-xs-4 col-sm-3 clear-box">
+      <div class="setting-right">38% of 5 GB</div>
+    </div>
+    <div class="col-md-9 col-xs-8 col-sm-9 clear-box"><a href="#">Manage Subscription</a>
+    </div>
+    <div class="col-md-3 col-xs-4 col-sm-3 clear-box">
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="settings-links">
+    <p><%= link_to "My Invitations",user_invitations_associates_path %>
+      <span class="pull-right">
+        <%= link_to user_invitations_associates_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+    <p><%= link_to "Start Associate Session",associate_users_associates_path %>
+      <span class="pull-right">
+        <%= link_to associate_users_associates_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+    <p><%= link_to "My Templates",user_forms_path %>
+      <span class="pull-right">
+        <%= link_to user_forms_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+    <p><%= link_to "Server login session",session_timeout_settings_path %>
+      <span class="pull-right">
+        <% if %w(24 48).include?(@setting.session_max)%>
+          <%= @setting.session_max%>hrs
+          <%else%>
+          <%= @setting.session_max%>
+        <%end%>
+        <%= link_to session_timeout_settings_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+    <p><%= link_to "App Color Palette",color_palette_setting_settings_path %>
+      <span class="pull-right">
+        <%if !(@setting.type_app_color).nil?%>
+          <% if @setting.type_app_color == "#008A52"%>
+            <span class="green-show-clr-pding"></span>
+          <%elsif @setting.type_app_color == "#0099D3"%>
+             <span class="blue-show-clr-pding"></span>
+          <%elsif @setting.type_app_color == "#9632E7"%>
+            <span class="purple-show-clr-pding"></span>
+          <%else%>
+             <span class="red-show-clr-pding"></span>
+          <%end%>
+          <%end%>
+          <%= link_to color_palette_setting_settings_path do%>
+              <i class="fa fa-chevron-right"></i>
+          <%end%>
+      </span>
+    </p>
+</div>
+</div>
+<div class="col-md-12">
+  <div class="settings-links">
+
+    <p><%= link_to "Media Upload",media_upload_setting_settings_path %>
+      <span class="pull-right">
+        <%= link_to media_upload_setting_settings_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+
+    <p><%= link_to "Tags settings",tag_setting_settings_path %>
+      <span class="pull-right">
+        <%= link_to tag_setting_settings_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+
+ </div>
+  <div class="settings-links">
+    <p><%= link_to "Send feedback",send_feedback_settings_path %>
+      <span class="pull-right">
+        <%= link_to send_feedback_settings_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+
+    <p><%= link_to "Report an issue",report_issue_settings_path %>
+      <span class="pull-right">
+        <%= link_to report_issue_settings_path do%>
+          <i class="fa fa-chevron-right"></i>
+        <%end%>
+      </span>
+    </p>
+  </div>
+</div>
+<div class="">
+   <div class="settings-links-last">
+      <p><%= link_to "Help",show_help_video_settings_path %>
+        <span class="pull-right">
+          <%= link_to show_help_video_settings_path do%>
+            <i class="fa fa-chevron-right"></i>
+          <%end%>
+        </span>
+      </p>
+      <p><%= link_to "Legal & privacy",legal_privacy_settings_path %>
+        <span class="pull-right">
+          <%= link_to legal_privacy_settings_path do%>
+            <i class="fa fa-chevron-right"></i>
+          <%end%>
+        </span>
+      </p>
+
+      <p><%= link_to "About",show_about_settings_path %>
+        <span class="pull-right">
+          <%= link_to show_about_settings_path do%>
+            <i class="fa fa-chevron-right"></i>
+          <%end%>
+        </span>
+      </p>
+  </div>
+</div>
+<div class="setting-bottm-pading"></div>
+
+
+ 
+
+

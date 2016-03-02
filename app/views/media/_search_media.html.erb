@@ -1,0 +1,28 @@
+<div class="images-box col-md-12">
+	<% @case_media.each do |media|%>
+		<%= link_to case_media_attachment_path(media,case_id: media.case_medium.case.id) do %>
+			<%if media.tags.present?%>
+				<% if media.attachment.content_type.start_with? 'image'%>
+					<span>
+		        	<%= image_tag media.attachment.thumb.url%>
+		        	</span>
+		    	<%elsif media.attachment.content_type.start_with? 'audio'%>
+		    		<span>
+				        <video controls style="width:18%;">
+				          <source src="<%=media.attachment.url%>">
+				        </video>
+			        </span>
+		      	<%else%>
+			      	<span>
+				        <video controls style="width:20%;">
+				          <source src="<%=media.attachment.url%>">
+				        </video>
+			        </span>
+		      	<%end%>
+		    <%end%>
+	    <%end%>
+	<%end%>
+	<% if @complex_search != true%>
+	<div style="text-align: center;"><%= will_paginate @case_media %></div>
+	<% end %>
+</div>

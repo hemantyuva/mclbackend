@@ -1,0 +1,12 @@
+$('.search_results').html("<%= j (render 'search_cases') %>");
+<% if params[:searchterm] != ''%>
+	$("#icon_change").html("<%= j (render 'star_icon') %>");
+	$('.search_results_count').html("<%= j (render 'search_cases_count') %>");
+<%else%>
+	$('.search_results_count').html("<div class='search-cases' align='center'>Search by name,diagnosis,surgery,note or any tag</div>")
+<% end %>
+
+$(".pagination a").click(function(){
+    $.getScript(this.href);
+    return false;
+});

@@ -1,0 +1,32 @@
+<div class="mnage-user">
+  <table class="table table-bordered">
+    <tr>
+      <th>Username</th>
+      <th>Mobile No</th>
+      <th>Email</th>
+      <th>Status  <%= select_tag :user_status, options_for_select([ ["Select","select"],["Active","true"],["Disabled","false"]]),class: "user_status_select"%></th>
+      <th>Actions</th>
+    </tr>
+      <% @users.each do |user|%>
+      <% if !user.admin == true%>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.mobile %></td>
+          <td><%= user.email %></td>
+            <% if user.status == true %>
+              <td>Active</td>
+            <%else%>
+              <td class="disabled">Disabled</td>
+            <%end%>
+          <td>
+           <% if user.status == true %>
+             <%= link_to 'Disable User', user_status_admin_path(user),method: :get %>
+            <%else%>
+              <%= link_to 'Enable User', user_status_admin_path(user),method: :get %>
+           <%end%> | <%= link_to "Reset Password",reset_password_admin_path(id: user.id),class: "reset_password_click",id: "userpw_#{user.id}"%>
+          </td>
+        </tr>
+      <%end%>
+      <%end%>
+  </table>
+</div>

@@ -1,0 +1,90 @@
+<div class="top-header">
+	<div class="col-sm-3 col-xs-3 col-md-3">
+		<h4><%= link_to "Cancel",questions_path,class: "fit-left"%></h4>
+	</div>
+	<div class="col-sm-6 col-xs-6 col-md-6">
+		<h4 class="text-center"><%= params[:action] == "edit" ? 'Edit Question' : 'Ask Question'%></h4>
+	</div>
+	<div class="col-sm-3 col-xs-3 col-md-3">
+		<h4><%= link_to "#{ params[:action] == "edit" ? 'Update' : 'Post'}","#",class: "fit-right submit-question-form"%></h4>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="qa-content">
+	<div class="col-md-2 col-xs-3 col-sm-3">
+		<div class="image">
+			<%= user_image @question.user%>
+		</div>
+	</div>
+	<div class="col-md-10 col-xs-9 col-sm-9 no-padding">
+		<p><%= @question.title%></p>
+	</div>
+</div>
+
+<div class="questionare-name">
+	<div class="col-md-5 col-xs-5"><p><%=@question.user.name%></p></div>
+	<div class="col-md-7 col-xs-7"><p><%=@question.created_at.strftime("%b  %d, %Y")%></p></div>	
+</div>
+
+<div class="col-md-12 no-padding">
+  	<div class="panel with-nav-tabs panel-default ">
+	    <div class="panel-heading description-qa-tabs">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#tab1default">Description</a></li>
+				<li><a data-toggle="tab" href="#tab2default">Tags</a></li>
+				<li><a data-toggle="tab" href="#tab3default">Media</a></li>
+				<li class="dropdown">
+				  <a data-toggle="tab" href="#tab4default">Polls</a>
+				</li>
+			</ul>
+    	</div>
+	    <div class="panel-body">
+	    	<%= nested_form_for(@question, :html => {:class => "question-form", :multipart => true }) do |f| %>
+					<%= hidden_field_tag :question_id,params[:id]%>
+		      	<div class="tab-content">
+			        <div id="tab1default" class="tab-pane fade in active">
+				   		<%= f.text_area :content,class: "form-control", placeholder: "write the content here"%>
+				   	</div>
+			        <div id="tab2default" class="tab-pane fade">
+			        	<span class="tags-error"></span>
+		    			<%= f.text_field :tags, value: (f.object.tags.join(", ") rescue nil), id: "question-tags", class: "form-control" %>
+		    		</div>
+			        <div id="tab3default" class="tab-pane fade">
+			        	<div class="question-img">
+			        		<%= render 'questions/question_images'%>
+						</div>
+			        	<%= f.fields_for :question_attachments do |p| %>
+			        		<div id="question_media">+</div>
+			       			<%= p.file_field :image, :multiple => true,name: "question_attachment[image][]", style: "display:none;"%>
+			   				<% end %>
+			   		</div>
+		        	<div id="tab4default" class="tab-pane fade">
+						<%= f.fields_for :options do |polls_option| %>
+							<i class="fa fa-play"></i>
+							<%= polls_option.text_field :text,class: "form-control",placeholder: "write option"%>
+							<%= polls_option.link_to_remove "-" , class: "remove-option" %>
+		   				<% end %>
+		   				<%= f.link_to_add "+", :options, class: "add-option" %>
+		        	</div>
+		      	</div>
+		    <% end %>
+	    </div>
+  	</div>
+</div>
+
+<script type="text/javascript">
+// Media tag limit showing up alert message
+$("body").on("keyup",".ui-autocomplete-input",function(evt){
+  tag_limit = parseInt("<%= @scn_tag_limit %>");
+    attachment_tag_count = $("#question-tags_tagsinput").children(".tag").length;
+    if (attachment_tag_count >= tag_limit){
+      $(".tags-error").html("you are not allowed to add more tags").addClass("tag-error-msg")
+      $('#question-tags_tagsinput').find('input').attr('id','')
+      return false;
+    } else {
+      $('#question-tags_tagsinput').find('input').attr('id',id)
+    }
+});
+</script>

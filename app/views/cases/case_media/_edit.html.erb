@@ -1,0 +1,32 @@
+<div class="media-attachment">
+   <%= render 'edit_first_attachment',case_media_attachment: @case_medium.case_media_attachments.first%>
+</div>
+
+<% @case_media_attachments.each do |attachment|%>
+    <div id="media-attachment_<%= attachment.id%>" class="attachment-show">
+      <%= render 'edit_attachment',case_media_attachment: attachment%>
+    </div>
+<%end%>
+<div class="clearfix"></div>
+<div class="img-list-clr">
+  <% @case_media_attachments.each do |attachment|%>
+   <div class="attachment_click" id="<%= attachment.id%>">
+      <% if attachment.attachment.content_type.start_with? 'image'%>
+          <%= image_tag attachment.attachment.thumb.url, class: "img-list"%>
+      <%else%>
+          <%= video_tag attachment.attachment.url,class: "img-list"%>
+      <%end%>
+   </div>
+  <%end%>
+
+ <div id="case_medium_update" class="case-media-plus-update">+</div>
+    <%= form_for [@surgery_case,@case_medium], :html=>{:class=>"edit_case", id: "media-form-update", multipart: "true"}  do |f|%>
+      <%= file_field_tag "case_medium[case_media_attachments_attributes][][attachment]", multiple: true, id: "case_medium_update_fields", style: "display:none;" %>
+    <%end%>
+<div>
+
+<script>
+  $(window).load(function() {
+   $(".attachment_click")[0].click();
+  });
+</script>

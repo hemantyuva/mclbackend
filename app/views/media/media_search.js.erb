@@ -1,0 +1,9 @@
+$('.media-result-count').text('<%=@case_media.count%>')
+$('.media_search_results').html("<%= j (render 'search_media') %>");
+$('.search_results').html("<%= j (render 'search_media') %>");
+$("#icon_change").html("<%= j (render 'star_icon') %>");
+
+$(".pagination a").click(function(){
+    $.getScript(this.href);
+    return false;
+});

@@ -1,0 +1,83 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to settings_path do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Settings</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">My App Data</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4></h4>
+    </div>
+  </div>
+</div>
+</div><br>
+  <div class="clearfix"></div>
+  <div class="my-app-pading"></div>
+  <div class="my-app-list">
+    <p><%=link_to "Manage Associates",associates_path %>
+      <span class="pull-right">
+      <%= link_to associates_path do%>
+        <i class="fa fa-chevron-right"></i>
+      <%end%>
+      </span>
+    </p>
+  </div>
+  <div class="my-app-pading"></div>
+  <div class="my-app-list">
+    <p><%= link_to "Manage Assistants",manage_assistants_path %>
+      <span class="pull-right">
+          <%= @user.preferrence.assistants.count %>
+          <%= link_to manage_assistants_path do%>
+            <i class="fa fa-chevron-right"></i>
+          <%end%>
+      </span>
+    </p>
+    <p><%= link_to "Asnaesthetists",anaesthetists_list_manage_assistants_path %>
+      <span class="pull-right">
+          <%= @user.preferrence.anaesthetists.count %>
+          <%= link_to anaesthetists_list_manage_assistants_path do%>
+            <i class="fa fa-chevron-right"></i>
+          <%end%>
+      </span>
+    </p>
+    <p><%= link_to "My surgery locations",surgery_locations_path %><span class="pull-right"><%= @surgery_locations %>
+      <%= link_to surgery_locations_path do%>
+        <i class="fa fa-chevron-right"></i>
+      <%end%>
+    </span>
+      
+    </p>
+
+  </div>
+  <div class="my-app-pading"></div>
+  <div class="my-app-list">
+    <p><%= link_to "My surgeries names",surgery_name_list_profiles_path %>
+      <span class="pull-right"><%= @surgeries  %>
+      <%= link_to surgery_name_list_profiles_path do%>
+        <i class="fa fa-chevron-right"></i>
+      <%end%>
+      </span>
+    </p>
+    <p><%= link_to "My diagnosis names", diagnosis_name_list_profiles_path %>
+    <span class="pull-right"><%= @diagnose %>
+      <%= link_to diagnosis_name_list_profiles_path do%>
+        <i class="fa fa-chevron-right"></i>
+      <%end%>
+    </span>
+    </p>
+  <!--   <p>My tags names
+    <span class="pull-right"><%#= @diagnose %>
+      <%#= link_to surgery_locations_path do%>
+        <i class="fa fa-chevron-right"></i>
+      <%#end%>
+    </span>
+    </p> -->
+  </div>
+
+

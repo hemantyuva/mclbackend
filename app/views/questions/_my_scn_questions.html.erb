@@ -1,0 +1,18 @@
+<% @questions.each do |question| %>
+	<div class="qa-content">	
+		<p><a href="<%= question_path(question.id) %>"><%= question.title %></a></p>
+		<div id="list-option">
+			<div class="col-md-4 col-xs-4 no-padding <%=question.id%>">
+			  	<%if question.tags[0].present?%>
+					<%=link_to question.tags[0],questions_path(tag: question.tags[0])%>&nbsp;&nbsp;<%=link_to image_tag("icons/arrow.png"),show_question_tags_question_path(question.id), remote: true%>
+				<%end%>
+			</div>
+			<div class="col-md-4 col-xs-4">
+				<b><%= question.votes.count %></b><span> votes &nbsp;&nbsp;</span>
+			</div>
+			<div class="col-md-4 col-xs-4 no-padding">
+				<b><%= question.answers.count %></b> <span>answers</span>
+			</div>
+		</div>
+	</div>		
+<%end%>

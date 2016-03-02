@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="error-box">
+      <span class="cross-button close close-button" style="display:none;">×</span>
+      <div class="error_msg"></div>
+    </div>
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-5">
+       <h4>
+          <%= link_to case_case_media_path(@surgery_case) do %>
+            <i class="fa fa-chevron-left fit-left shw-page-updte"></i>
+          <%end%>
+       </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-4">
+        <span class="cse-shw-dte"><%= attachment_format(@case_media_attachment.created_at)%></span>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <%= link_to "Update","#",class: "attachment-media-submit-form fit-right shw-page-updte"%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= form_for @case_media_attachment,:url => attachment_update_case_media_attachment_path(@case_media_attachment), :method => :put,:html=>{id: "attachment-media-form-update", multipart: "true"}  do |f|%>
+  <%= hidden_field_tag :case_id,@surgery_case.id %>
+  <%= hidden_field_tag :media_attachment_id, @case_media_attachment.id %>
+  <input value="<%= @surgery_case.id %>" style="display:none;" id="case_id">
+  <div class="show-pg-img">
+    <% if @case_media_attachment.attachment.content_type.start_with? 'image'%>
+        <%= image_tag @case_media_attachment.attachment.case_image.url,id: "example" %>
+    <%elsif @case_media_attachment.attachment.content_type.start_with? 'audio'%>
+        <audio controls>
+           <source src="<%=@case_media_attachment.attachment.url%>">
+        </audio>
+      <%else%>
+         <video controls style="width: 70%">
+          <source src="<%=@case_media_attachment.attachment.url%>">
+        </video>
+      <%end%>
+    
+  </div>
+  <div class="tab-content">
+    <div id="note_tab" class="tab-pane fade in active">
+    <div class="col-md-2 show-pg-txt"><center><span class="bold-text"><%= f.label :note, "NOTE"%></span></center></div>
+        <div class="col-md-10 show-pg-txt"><%= f.text_field :note,class: "form-control text-box" %></div>
+    </div>
+    <div id="tag_tab" class="tab-pane fade">
+      <span class="tags-error"></span>
+      <div class="col-md-2 show-pg-txt"><center><span class="bold-text"><%= f.label :tags, "TAGS"%></span></center></div>
+      <div class="col-md-10 show-pg-txt"><%= f.text_area :tags,class: "form-control",id: "attachment_tag" %></div>
+    </div>
+    <div id="location_tab" class="tab-pane fade">
+      <div class="col-md-2 show-pg-txt"><center><span class="bold-text"><%= f.label :location, "Location"%></span></center></div>
+      <div class="col-md-10 show-pg-txt"><%= f.text_field :location,class: "form-control text-box"%></div>
+    </div>
+    <div id="zoom_tab" class="tab-pane fade">
+    </div>
+    <div id="trash_tab" class="tab-pane fade">
+    </div>
+  </div>
+  <br><br><br>
+  <ul class="nav nav-tabs img-show-nav">
+    <li class="active"><a data-toggle="tab" href="#note_tab"><i class="fa fa-comment-o"></i></a></li>
+    <li><a data-toggle="tab" href="#tag_tab"><i class="fa fa-tag"></i></a></li>
+    <li><a data-toggle="tab" href="#location_tab"><i class="fa fa-map-marker"></i></a></li>
+    <li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-search-plus"></i></a></li>
+    <li><a data-toggle="tab" href="#trash_tab"><i class="fa fa-trash-o attachment-delete" id="<%= @case_media_attachment.id%>"></i>
+    </a></li>
+  </ul>
+<%end%>
+
+<!-- Modal -->
+<% if @case_media_attachment.attachment.content_type.start_with? 'image'%>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+          <button type="button" class="model-close close" data-dismiss="modal">&times;</button>
+          <%= image_tag @case_media_attachment.attachment.case_image.url,style: "width:100%;padding:10px;"%>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+
+<script type="text/javascript">
+// Media tag limit showing up alert message
+$("body").on("keyup",".ui-autocomplete-input",function(evt){
+  var id = $('#attachment_tag_tagsinput').find('input').attr('id');
+  $('#attachment_tag_tagsinput').find('input').attr('id',id)
+  tag_limit = parseInt("<%= @tag_count %>");
+    attachment_tag_count = $("#attachment_tag_tagsinput").children(".tag").length;
+    if (attachment_tag_count >= tag_limit){
+      $(".tags-error").html("you are not allowed to add more tags").addClass("tag-error-msg")
+      $('#attachment_tag_tagsinput').find('input').attr('id','')
+      return false;
+    } else {
+      $('#attachment_tag_tagsinput').find('input').attr('id',id);
+      return true;
+    }
+});
+</script>

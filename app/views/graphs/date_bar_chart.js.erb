@@ -1,0 +1,20 @@
+$("#chart-partial").html("<%= j (render 'date_range_bar_chart')%>")
+
+  $('.from_datepicker').datetimepicker({
+      format : "DD-MM-YYYY",
+  })
+
+  $('.to_datepicker').datetimepicker({
+    format : "DD-MM-YYYY"
+  });
+
+  $('.quick_stats_datepicker').datetimepicker({
+    format : "MM-YYYY",
+  })
+  
+  if (sessionStorage["graph_box"]=="none"){
+    $( "#search-graph-main" ).show();
+  }
+
+  $(".graph_type_input").val("bar")
+graph_tag_search()

@@ -1,0 +1,6 @@
+<% @question.question_media_attachments.each do |attachment|%>
+	<%=link_to destroy_question_media_question_path(@question.id, media_id: attachment.id), method: :delete, remote: true do %>
+		<span><i class="fa fa-times-circle-o close-icon"></i>
+	<%end%>
+	<%= image_tag attachment.image.url %></span>
+<%end%>

@@ -1,0 +1,15 @@
+<%= hidden_field_tag :my_template, "false" %>
+<h4 class="text-center"><b><%=@form.form_name%></b></h4>
+<div class="case_form_fields">
+	<%@form.form_fields.each do |id|%>
+		<% @field = AdminField.find(id) %>
+		<%= render 'field_with_type'%>
+	<%end%>
+</div>
+<div class="text-center">
+	<label class="patient-add-btn case-edit-field"><%=link_to "Create a new field",new_field_user_forms_path,remote: true%>	
+	</label>
+</div>
+<div id="user_case_field">
+	
+</div>

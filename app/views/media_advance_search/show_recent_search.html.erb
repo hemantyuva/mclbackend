@@ -1,0 +1,3 @@
+<%@recent_search_term.each do |term|%>
+    <p><%=link_to term,media_search_media_path(:searchterm =>term), remote: true%></p>
+<%end%>

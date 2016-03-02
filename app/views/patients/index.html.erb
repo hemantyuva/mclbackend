@@ -1,0 +1,57 @@
+<%- model_class = Patient -%>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-2 col-xs-3 col-md-3">
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center"><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h4>
+    </div>
+    <div class="col-sm-2 col-xs-3 col-md-3">  
+    </div>
+  </div>  
+</div>
+<div class="clearfix"></div>
+ <div class="col-md-12 clear-box icon-text-field">
+  <div class="col-sm-12 col-xs-12 col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+         <!-- <th><%= model_class.human_attribute_name(:id) %></th>-->
+          <th><%= model_class.human_attribute_name(:firstname) %></th>
+          <th><%= model_class.human_attribute_name(:lastname) %></th>
+          <% if session[:edit_right].nil? || session[:edit_right]%>
+            <th><%=t '.actions', :default => t("helpers.actions") %></th>
+          <%end%>
+        </tr>
+      </thead>
+      <tbody>
+        <% @patients.each do |patient| %>
+          <tr>
+            <td><%= link_to patient.firstname, patient_path(patient)%></td>
+            <td><%= patient.lastname %></td>
+           <% if session[:edit_right].nil? || session[:edit_right]%>
+              <td>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_patient_path(patient), :class => 'btn btn-default btn-xs' %>
+              <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              patient_path(patient),:method => :delete,:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },:class => 'btn btn-xs btn-danger' %>
+              </td>
+            <%end%>
+          </tr>
+        <% end %> 
+      </tbody>
+    </table>
+  </div>
+  <div style="text-align: center;"><%= will_paginate @patients %></div>
+</div><br>
+<div style="clear:both;"></div>
+<% if session[:edit_right].nil? || session[:edit_right] %>
+  <div class="color-add"><span class="add-new-patient fa fa-plus-circle"></span>
+    <%= link_to "Add New Patient",new_patient_path,class: "patient-add-btn"%>
+  </div>
+<%end%>
+
+
+
+

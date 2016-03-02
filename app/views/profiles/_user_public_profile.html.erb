@@ -1,0 +1,105 @@
+<div class="tab-content">
+  <div id="pl_tab" class="tab-pane fade active in">
+    <div class="content-tabs">
+      <table class="table pl-table">
+        <tr>
+          <th width="30%">SPECIALITY</th>
+          <td><%= @profile_setting.specialist_name%></td>
+        </tr>
+        <tr>
+          <th>SUB-<br>SPECIALITY</th>
+          <td>
+          <% @user.profile_setting.sub_speciality_names.each do |subspeciality| %>
+              <div><%= subspeciality.text%></div><br>
+            <%end%>
+          </td>
+        </tr>
+        <tr>
+          <th>PRACTICE<br>LOCATION</th>
+            <td>
+              <% if !@surgery_locations.nil? %>
+                <% @surgery_locations.each do |location|%>
+                <div><%= location.name%></div><br>
+              <%end%>
+            </td>
+          <%end%>
+        </tr>
+      </table>
+    </div>
+  </div>
+ 
+
+  <div id="ae_tab" class="tab-pane fade">
+    <div class="content-tabs">
+      <table class="table pl-table">
+        <tr>
+          <th>MEDICAL<br>SCHOOL</th>
+          <td>
+           <% @user.profile_setting.medical_schools.each do |school|%>
+              <div><%= school.text %></div><br>
+           <%end%>
+          </td>
+        </tr>
+        <tr>
+          <th>RESIDENCY/<br>DIPLOMA</th>
+          <td>
+            <% @user.profile_setting.residency_diplomas.each do |residency|%>
+              <div><%= residency.text %></div><br>
+           <%end%>
+          </td>
+        </tr>
+      <!--   <tr>
+          <th>SPECIALITY<br>TRAINING</th>
+          <td><%#= @profile_setting.sub_speciality_name%></td>
+          </td>
+        </tr> -->
+      </table>
+    </div>
+  </div>
+  <div id="sa_tab" class="tab-pane fade">
+    <div class="content-tabs">
+        <% if !@questions.nil? %>
+          <% @questions.each do |question|%>
+            <p class="prfile-quentin-cont">Asked a question | <%= local_time_ago(question.created_at)%></p>
+            <p class="prfile-quentin-title"><%= question.title%></p>
+          <%end%>
+        <%end%>
+    </div>
+  </div>
+  <div id="mh_tab" class="tab-pane fade">
+    <div class="my-hub-content">
+      <p><span class="cont-clr">Publish</span> and <span class="cont-clr">Collaborate</span><br>
+      with everyone</p>
+      <p><b>Coming Soon</b></p>
+    </div>
+  </div>
+  <div id="am_tab" class="tab-pane fade">
+  <div class="content-tabs">
+    <table class="table pl-table">
+      <tr>
+        <th>MY<br>FAVOURITE (S)</th>
+        <td>            
+          <%= @user.profile_setting.my_favorite %>
+        </td>
+      </tr>
+     <tr>
+        <th>MY<br>HOBBY (S)</th>
+        <td>
+          <%= @user.profile_setting.my_hobby %>
+        </td>
+     </tr>
+     <tr>
+        <th>MORE<br>ABOUT ME (S)</th>
+        <td>
+          <%= @user.profile_setting.about_text %>
+        </td>
+     </tr>
+      <tr>
+        <th>My<br>Quote</th>
+        <td>
+          <%= @user.profile_setting.my_quote %>
+        </td>
+     </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div id="container"></div>
+<div class="question-recent-keywords">
+	<%if @graph_search != "true"%>	
+		<div class="complex_search">
+			<div class="col-md-3 col-xs-5 col-sm-3">
+				<h1>ANY of this</h1>
+			</div>
+			<div class="col-md-9 col-xs-7 col-sm-9"> 
+				<p>abc OR xyz</p> 
+			</div>
+		</div>
+		<div class="complex_search">
+			<div class="col-md-3 col-xs-5 col-sm-3">
+				<h1>ALL of this</h1></div>
+			<div class="col-md-9 col-xs-7 col-sm-9"> 
+				<p>abc AND xyz</p> </div>
+			</div>
+		<div class="complex_search">
+			<div class="col-md-3 col-xs-5 col-sm-3">
+				<h1>NONE of this</h1>
+			</div>
+			<div class="col-md-9 col-xs-7 col-sm-9"> 
+				<p>~abc AND ~xyz</p> 
+			</div>
+		</div>
+	<%else%>
+		<div class="complex_search">
+			<div class="col-md-3 col-xs-5 col-sm-3">
+				<h1>NONE of this</h1>
+			</div>
+			<div class="col-md-9 col-xs-7 col-sm-9"> 
+				<p>~abc,~xyz</p> 
+			</div>
+		</div>
+	<%end%>
+</div>

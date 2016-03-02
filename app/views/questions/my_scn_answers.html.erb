@@ -1,0 +1,24 @@
+<% @answers.map(&:question).uniq.each do |question| %>
+	<div class="qa-content">
+		<p class="ssn-question"><a href="<%= question_path(question.id) %>">Q: <%= question.title %></a></p>
+		<div class="clearfix"></div>
+		<%question.answers.where(:user_id=>@associate_user.id).each do |answer |%>
+			<div class="answer-details"><%=answer.answer_text %>
+			</div>
+		<%end%>
+		<div class="col-md-12 no-padding">
+			<div class="col-md-4 col-xs-4 clear-box">
+				<div class="ans-date"><%= question.created_at.strftime("%B  %d, %Y")%>
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-4 no-padding">
+			<div class="more-answer"><b><%= question.answers.count %></b> answers
+			</div>
+		</div>
+			<div class="col-md-4 col-xs-4 clear-box">
+				<div class="ans-like"><%= question.votes.count %>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+<%end%>

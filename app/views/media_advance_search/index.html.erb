@@ -1,0 +1,36 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-md-6 col-md-offset-3">
+      <center><%= select_tag :search_options, options_for_select([["Search Media","media"],["Search Cases","cases"]]),class: "new-select-top" %>
+      </center>
+    </div>
+  </div>  
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12 clear-box icon-text-field">
+  <span><i class="fa fa-search search-icon"></i></span>
+  <%= text_field_tag :advance_search_media,nil,placeholder: "search media",class: "add-schdle-txt form-control"%>
+</div>
+
+<div class="col-md-12 clear-box icon-text-field">
+  <div class="col-sm-12 col-xs-12 col-md-12 clear-box">
+    <ul class="nav nav-tabs advance-tabs-nav">
+      <li class="active"><a id="media_recent_search" data-toggle="tab" href="#media-recent-search">Recent Search </a></li>
+      <li><a id="media_saved_search" data-toggle="tab" href="#media-saved-search">Saved Search</a></li>
+      <li><a id="media_complex_search" data-toggle="tab" href="#media-complex-search">Complex Search</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="media-recent-search" class="tab-pane fade in active search_results">
+        <div class="recent-keywords">
+          <%@recent_search_term.each do |term|%>
+            <p><%=link_to term,media_search_media_path(:searchterm =>term), remote: true%></p>
+          <%end%></div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

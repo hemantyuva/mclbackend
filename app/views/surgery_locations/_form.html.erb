@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4>          
+          <%= link_to settings_path do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">Settings</i>
+          <%end%>
+        </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+        <h4 class="text-center">Locations</h4>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4><%= link_to "Done","#",class: "fit-right patient-add submit-surgery_location-form"%>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+  <div class="form-horizontal">
+    <div class="">
+      <div class="col-md-12 loction_frm_clr">
+        <%= form_for (@surgery_location),:html => { :class => "form-horizontal  surgery_location-form" }  do |location|%>
+          <div class="form-group">
+            <div class="col-sm-10 col-xs-8  col-md-12  clear-box">
+              <%= location.text_field :name, :class => 'form-control',placeholder: "location name" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10 col-xs-8  col-md-12  clear-box">
+              <%= location.text_field :address, :class => 'form-control',placeholder: "address" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10 col-xs-8  col-md-12  clear-box">
+              <%= location.text_field :phone, :class => 'form-control',placeholder: "phone number"%>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,36 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to settings_path do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Settings</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">Help</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4></h4>
+    </div>
+  </div>
+</div>
+</div><br>
+
+<div class="help-vedo">
+  <div class="help-vdeo-title">
+    See the examples below for how to use the app
+  </div><br>
+  <% @helps.each do |url_help| %>
+    <div class="vido-name">
+      <%= url_help.title%>
+    </div>
+    <div class="thum-vdeo">
+      <a class="youtube_thumbnail" href="<%= url_help.url%>" target="_blank"></a>
+    </div><br>
+  <% end %>
+</div>
+
+
+

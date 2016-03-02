@@ -1,0 +1,2 @@
+module CaseMediaAttachmentsHelper
+end

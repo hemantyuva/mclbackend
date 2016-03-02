@@ -1,0 +1,6 @@
+$("#questions-tab").html("<%= j (render 'scn_users_list') %>");
+activaTab('questions-tab');
+$(".pagination a").click(function(){
+    $.getScript(this.href);
+    return false;
+});

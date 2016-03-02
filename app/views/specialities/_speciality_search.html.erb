@@ -1,0 +1,26 @@
+<div class="mange-master">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @specialities.each do |speciality| %>
+        <tr>  
+          <td><%= speciality.name %></td>
+          <td><%= spec_date_format(speciality.created_at)%></td>
+          <td><%= spec_date_format(speciality.updated_at)%></td>
+          <td><%= link_to 'Modify', edit_speciality_path(speciality) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div style="text-align: center;"><%= will_paginate @specialities %></div>
+
+

@@ -1,0 +1,63 @@
+<div class="col-sm-12 col-xs-12 col-md-12 no-padding">
+	<ul class="patient-tabs-nav nav nav-tabs case-form-header" >
+	    <li class="<%= @tab == "case_field" ? "" : "active" %>">
+	    	<a data-toggle="tab" href="#case_form">Case Form Templates</a>
+	    </li>
+	    <li class="<%= @tab == "case_field" ? "active" : "" %>">
+	    	<a data-toggle="tab" href="#case_field">Form Fields</a>
+	    </li>
+	</ul>
+</div>
+<div class="tab-content">
+  	<div id="case_form" class="tab-pane fade <%= @tab == "case_field" ? "" : "active in" %>">
+	  	<label class="pull-right lbel-colr clear case-form-link"><%=link_to "Create a new case form template",new_form_admin_forms_path%>
+	  	</label>	
+	  	<table class="table table-bordered clear case-form-table">
+		    <tr>
+		        <th>Template Name</th>
+		        <th>Created</th>
+		        <th>Modified</th>
+		        <th>Copied</th>
+		        <th>Number of fields</th>
+		        <th>Actions</th>
+		    </tr>
+	    	<% @admin_forms.each do |form| %>
+		        <tr>  
+					<td><%=form.form_name%></td>
+					<td><%=spec_date_format(form.created_at)%></td>
+					<td><%=spec_date_format(form.updated_at)%></td>
+					<td>&nbsp;</td>
+					<td><%=form.form_fields.count%></td>
+					<td>
+						<%= link_to 'Modify', edit_form_admin_form_path(form)%> |
+						<%= link_to "Delete",destroy_form_admin_form_path(form),method: :delete %>
+					</td>
+		        </tr>
+		    <%end%>
+	  	</table>
+  	</div>
+  	<div id="case_field" class="tab-pane fade <%= @tab == "case_field" ? "active in" : "" %>">
+  		<label class="pull-right lbel-colr clear case-form-link"><%=link_to "Create a new field",new_field_admin_forms_path%>	</label>
+	 	<table class="table table-bordered clear case-form-table">	    
+			<tr>
+				<th>Field Name</th>
+				<th>Created</th>
+				<th>Modified</th>
+				<th>Type</th>
+				<th>Actions</th>
+			</tr> 
+	    	<% @admin_fields.each do |field| %>
+		        <tr>  
+					<td><%=field.field_name%></td>
+					<td><%=spec_date_format(field.created_at)%></td>
+					<td><%=spec_date_format(field.updated_at)%></td>
+					<td><%=field.field_type%></td>
+					<td>
+						<%= link_to 'Modify', edit_field_admin_form_path(field)%> |
+						<%= link_to "Delete",destroy_field_admin_form_path(field),method: :delete %>
+					</td>
+		        </tr>
+		 	<%end%>  
+		</table>
+  	</div>
+</div>

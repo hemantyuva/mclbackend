@@ -1,0 +1,39 @@
+<div class="manage-master-nav-tabs">
+    <ul>
+      <li>
+        <%= link_to "Speciality",specialities_path%>
+      </li>
+        <li><%= link_to "Surgery",surgeries_path %></li>
+        <li><%= link_to "Diagnosis",diagnoses_path,class: "manage-master-nav-tabs-active"%></li>
+    </ul>
+</div>
+
+<%= render 'form'%><br>
+  <%= text_field_tag :diagnose_search,nil,id: "diagnose_name_search",placeholder: "Type diagnose name to instant search",class: "add-schdle-txt form-control"%>
+<div id="diagnose_search_partial">
+<div class="mange-master">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @diagnoses.each do |diagnose| %>
+        <tr>  
+          <td><%= diagnose.name %></td>
+          <td><%= spec_date_format(diagnose.created_at)%></td>
+          <td><%= spec_date_format(diagnose.updated_at)%></td>
+          <td><%= link_to 'Modify',edit_diagnosis_path(diagnose) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  <div style="text-align: center;"><%= will_paginate @diagnoses %></div>
+</div>
+

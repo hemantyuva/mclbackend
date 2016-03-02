@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4>          
+          <%= link_to associates_path do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">Associates
+            </i>
+          <%end%>
+        </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+        <h4 class="text-center">Details</h4>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <%= link_to associate_path(@associate), method: :delete do %>
+          <i class="associate-delete-icon fa fa-trash-o pull-right"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div><br>
+<div class="clearfix"></div>
+<div class="associate-show">
+  <div class="associate-show-details">
+    <h1><%=@user.name%></h1>
+    <h6><%if @associate.status == nil%>
+          pending acceptance
+        <%elsif @associate.status%>
+          Last Login-
+          <%=@user.last_sign_in_at.strftime("%b %d, %Y at %I:%M %p")%>
+        <%else%>
+          <span class="reject">Invite Rejected</span>
+        <%end%></h6>
+  </div>
+  <div class="associate-bottom">
+    <div class="row">
+      <div class="col-md-6">
+        Email
+      </div>
+      <div class="col-md-6">
+        <div class="align-right"><%=@user.email%></div>
+      </div>
+    </div>
+  </div>
+  <div class="associate-bottom">
+    <div class="row">
+      <div class="col-md-6">
+        Mobile # 
+      </div>
+      <div class="col-md-6">
+        <div class="align-right"><%=@user.mobile%></div>
+      </div>
+    </div>
+  </div>
+  <div class="associate-bottom">
+    <div class="row">
+      <div class="col-md-6">
+        Can edit data
+      </div>
+      <div class="col-md-6">
+        <div id ="edit_link">
+          <%= render 'edit_button'%>
+        </div>
+      </div>
+    </div>
+  </div>
+  </br>
+  <% if !@associate.status%>
+    <p>
+      <%=link_to "Re-send Invite request",create_invitation_associates_path(user_id: @user.id), method: :post,class: "btn btn-sucess resend_invite  btn-block"%>
+    </p>
+  <%end%>
+</div>

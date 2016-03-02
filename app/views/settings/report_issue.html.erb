@@ -1,0 +1,32 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to settings_path do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Settings</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">Report an issue</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>
+        <%= link_to "Send","#",class: "send_feedback_click fit-right"%>
+      </h4>
+    </div>
+  </div>
+</div>
+</div><br>
+<div class="your-feed-text"><p>Your issue</p></div>
+<div class="help-vedo">
+<div>
+  <%= form_for @setting,url: user_send_report_settings_path, method: "get" do |f| %>
+    <div class="form-group">
+      <div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+        <%= text_area_tag "report_text",nil,size: "150x5",class: "form-control feedback-wdth",placeholder: "Enter report issue" %>
+      </div>
+    </div>
+  <%end%>
+</div>

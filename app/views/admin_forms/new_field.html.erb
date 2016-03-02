@@ -1,0 +1,58 @@
+<div class="col-md-10 col-md-offset-1 col-xs-12 ">
+  <%= nested_form_for @admin_field, :url =>create_field_admin_forms_path, :method => "post" do |f| %>
+     <%= f.hidden_field :multiple, value: false %>
+    <div class="form-group">
+      <%= f.label :field_name,"Field Name",class: "control-label col-sm-2 col-xs-5 col-md-3" %>
+    	<div class="col-sm-10 col-xs-7  col-md-9  ">
+    	    <%= f.text_field :field_name, :class => 'form-control',:required=> true%>
+    	</div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :field_slug,"Field Slug",class: "control-label col-sm-2 col-xs-5 col-md-3" %>
+      <div class="col-sm-10 col-xs-7  col-md-9  ">
+        <%= f.text_field :field_slug, :class => 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :required,"Required",class: "control-label col-sm-2 col-xs-5 col-md-3" %>
+      <div class="col-sm-10 col-xs-7  col-md-9 ">
+        <%= f.check_box :required,class: "required-check-box"%>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :field_type,"Field Type",class: "control-label col-sm-2 col-xs-5 col-md-3" %>
+      <div class="col-sm-10 col-xs-7  col-md-9  ">
+        <%= f.select :field_type,[["Textfield","text"],["Textarea","textarea"], ["Single select dropdown","select"],["Multiple select dropdown","select"],["Radio","radio"],["Numeric field","number"],["Date field","date"],["Time field","time"]],{prompt: "Select"}, {class: "form-control"} %>
+      </div>
+    </div>
+    <div id="radio_options" style="display:none;">
+      <div class="clearfix"></div>
+      <%= label :field_options, 'Field options',class: "control-label col-sm-2 col-xs-5 col-md-5  no-res-padding" %>
+      <%= label :field_options,'select default option',class: "control-label col-sm-2 col-xs-7 col-md-5 no-padding" %>
+      <%= f.fields_for :field_options do |option| %>
+        <div class="col-sm-10 col-xs-12  col-md-12 no-padding">
+          <div class="col-sm-10 col-xs-5  col-md-5  no-res-padding">
+      		  <%= option.text_field :option_text,class: "form-control",placeholder: "write option"%>
+          </div>  
+          <div class="col-sm-10 col-xs-3  col-md-4 text-center">
+            <%=option.radio_button :default_option,"",class: "default_option"%>
+          </div>
+          <div class="col-sm-10 col-xs-3  col-md-2   ">  
+    		    <%= option.link_to_remove "-" , class: "remove-option" %>
+          </div>
+        </div>  
+    	<% end %>
+    	<%= f.link_to_add "+", :field_options, class: "add-option clear" %>
+    </div>
+    <div class="actions">
+      <div style="text-align:center;">
+        <%= f.submit "Save",class: "btn btn-success" %>
+        <%=link_to "Cancel",admin_forms_path(tab: "case_field"),class: "btn btn-success" %>
+      </div>
+    </div>
+  <%end%>
+</div>
+

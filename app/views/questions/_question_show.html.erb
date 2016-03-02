@@ -1,0 +1,70 @@
+<%if !params[:tag].nil?%>
+	<div class="questions-tags">
+	<div class="col-md-9 col-xs-8 clear-box">
+	tag: <span class="q-tags"><%=@tag%>
+	<%=link_to questions_path do %>
+		<i class="fa fa-times-circle-o"></i>
+	<%end%>
+</span>
+	</div>
+	<div class="col-md-3 col-xs-4 clear-box">
+<div class="ques-count-right">
+	<b><%=@questions.count%></b> questions
+</div>
+	</div>
+	</div>
+<%end%>
+<div class="col-md-12 no-padding">
+	<% @questions.each do |question|%>
+		<div class="qa-content">
+			<div class="ssn-tab">
+				<div class="col-md-2 col-xs-3 col-sm-2 no-padding ">
+					<div class="image">
+						<%= link_to show_user_profile_profiles_path(id:question.user.id) do %>
+            				<%= user_image question.user%>
+          				<% end %>
+					</div>
+				</div>
+				<div class="col-md-10 col-xs-9 no-padding">
+					<p><a href="<%= question_path(question.id) %>"><%= question.title %></a></p>
+				</div>
+			</div>	
+			<div>
+				<div class="quetionare-name" >
+					<div class="col-xs-3 col-md-2 col-sm-2 no-padding">
+						<span class="sub-text-new">scns </span>
+						<span class="sub-text-one"><%=question.user.scn_score%></span>
+					</div>
+					<div class="col-xs-9 col-md-10 col-sm-10 no-padding">
+						<p id="list-option">
+						<%= link_to show_user_profile_profiles_path(id:question.user.id) do %>
+            				<b><%= question.user.name %></b>
+          				<% end %>
+						<span class="hour-span"><%= local_time_ago(question.created_at)%></p></span>
+					</div>	
+				</div>
+				<div id="list-option" class="border-lighter">
+					<div class="col-md-4 col-xs-6 clear-box">
+						<span class="<%=question.id%>">
+						<%if question.tags[0].present?%>
+							<%=link_to question.tags[0],questions_path(tag: question.tags[0])%>&nbsp;<%=link_to image_tag("icons/arrow.png"),show_question_tags_question_path(question.id), remote: true%>
+						<%end%>
+						</span>
+					</div>
+					<div class="col-md-4 col-xs-3 text-center clear-box">
+						<b><%= question.votes.count %></b>
+						<span>votes</span>
+					</div>
+					<div class="col-md-4 col-xs-3 text-right clear-box">
+						<b><%= question.answers.count %></b>
+						<span>answers</span>
+					</div>
+				</div>	
+			</div>	
+		</div>
+	<%end%>
+	<% if @complex_search != true%>
+		<div style="text-align: center;"><%= will_paginate @questions %></div>
+	<%end%>
+</div>
+

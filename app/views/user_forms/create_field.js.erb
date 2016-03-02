@@ -1,0 +1,9 @@
+$(".case_form_fields").append("<%= j (render 'cases/field_with_type_for_new') %>")
+$(".user_form_fields").append("<%= j (render 'user_field') %>")
+$( ".remove_new_user_field" ).remove();
+$('.case_form_datepicker').datetimepicker({
+    format: 'DD/MM/YYYY',
+});
+$('.case_form_timepicker').datetimepicker({
+    format: 'LT'
+});

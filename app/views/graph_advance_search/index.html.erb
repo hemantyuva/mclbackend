@@ -1,0 +1,46 @@
+<div class="stats-font">
+  <p class="pull-left">Search to plot stats</p>
+  <p class="pull-right" style="color:#e03347;"><%= link_to "CANCEL",date_range_graphs_path%></p>
+</div>
+
+<div class="clearfix"></div>
+<div class="col-md-12 clear-box icon-text-field">
+  <span><i class="fa fa-search search-icon"></i></span>
+  <%= text_field_tag :advance_search_graph,nil,placeholder: "search",class: "add-schdle-txt form-control",data: "#{params[:from]}_#{params[:to]}"%>
+</div>
+<div id="advance_search_graphs">
+<div class="col-md-12 clear-box icon-text-field">
+  <div class="col-sm-12 col-xs-12 col-md-12 clear-box">
+    <ul class="nav nav-tabs advance-tabs-nav">
+      <li class="active"><a id="graph_recent_search" data-toggle="tab" href="#graph-recent-search" data-value="<%=params[:from]%>_<%=params[:to]%>">Recent Search </a></li>
+      <li><a id="graph_saved_search" data-toggle="tab" href="#graph-saved-search" data-value="<%=params[:from]%>_<%=params[:to]%>">Saved Search</a></li>
+      <li><a id="graph_complex_search" data-toggle="tab" href="#graph-complex-search">Complex Search</a></li>
+    </ul>
+    <br>
+    <div class="form-horizontal">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="chart-dates">
+            <%= form_tag advance_search_graph_graph_advance_search_index_path,remote:true,method: "get" do %>
+                <%= label_tag "From"%>  <%= text_field_tag "from",params[:from],class: "from_datepicker",id: "advance_from_date",:required => true%>
+                <%= label_tag "To"%>  <%= text_field_tag "to",params[:to],class: "to_datepicker",:required => true%>
+                <%= submit_tag "PLOT",id: "advance_to_date",class: "plot-btn btn btn-success btn"%>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div id="graph-recent-search" class="tab-pane fade in active graph_search_results">
+        <div class="graph-recent-keywords">
+          <%@recent_search_term.each do |term|%>
+            <p><%=link_to term,complex_graph_search_graph_advance_search_index_path(:term =>term,from: params[:from],to: params[:to]), remote: true%></p>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+

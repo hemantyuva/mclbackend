@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="card card-container">
+      <div class="login-div">
+      <div class="logo-img"><%= image_tag "logo1.jpg"%></div>
+        <div class="app-name">MyCaselog</div>
+      </div>
+      <div class="alert-message">
+        <% if !resource.errors.blank?%>
+          <div class="alert-alert"><%=resource.errors.full_messages.join("<br/>").html_safe %>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-form-container form-signin">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.hidden_field :reset_password_token %>
+          <div class="form-group">
+            <i class="fa ct-lock icon2"></i>
+            <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "New password",class: "form-control"  %>
+          </div>  
+          <div class="form-group">
+            <i class="fa ct-lock icon2"></i>
+            <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm new password",class: "form-control" %>
+          </div>  
+          <div class="actions">
+            <%= f.submit "Change my password",class: "btn btn-lg btn-success btn-block btn-signin"  %>
+          </div>
+        <% end %><br/>
+        <div class="forgot-password">
+          <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+        </div>
+        <div class="sign-in-link">
+          <%= link_to "Sign in", new_user_session_path %>         
+        </div>
+        <br />
+      </div>
+  </div><!-- /card-container -->
+</div><!-- /container -->

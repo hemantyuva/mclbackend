@@ -1,0 +1,31 @@
+$(".main-tags").html("<%= j (render 'tags_chart')%>")
+$("#icon_change").html("<%= j (render 'star_icon') %>");
+
+  $('.from_datepicker').datetimepicker({
+      format : "DD-MM-YYYY",
+  })
+
+  $('.to_datepicker').datetimepicker({
+    format : "DD-MM-YYYY"
+  });
+
+  $('.quick_stats_datepicker').datetimepicker({
+    format : "MM-YYYY",
+  })
+  
+  if (sessionStorage["graph_box"]=="none"){
+    $( "#search-graph-main" ).show();
+  }
+
+
+graph_tag_search()
+
+<%if params[:graph_resource] == "bar" %>
+  $(".graph_type_input").val("line")
+  $(".chart-icon").html("<i class=\"quick-line-tags-chart-click fa fa-line-chart\"></i>")
+<% elsif params[:graph_resource] == "line"%>
+  $(".graph_type_input").val("bar")
+  $(".chart-icon").html("<i class=\"quick-bar-tags-chart-click fa fa-bar-chart on-line-chart\"></i>")
+<% else %>
+  $(".chart-icon").html("<i class=\"quick-line-tags-chart-click fa fa-line-chart \"></i>")
+<% end %>

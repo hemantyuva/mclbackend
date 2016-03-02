@@ -1,0 +1,4 @@
+<div id="container"></div>
+<%@recent_search_term.each do |term|%>
+    <p><%=link_to term,complex_graph_search_graph_advance_search_index_path(:term =>term,from: params[:from],to: params[:to]), remote: true%></p>
+<%end%>

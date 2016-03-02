@@ -1,0 +1,37 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="top-header">
+		<div class="col-md-6 col-md-offset-3">
+			<center><%= select_tag :search_options, options_for_select([["Search Media","media"],["Search Cases","cases"]]),class: "new-select-top" %>
+			</center>
+		</div>
+	</div>	
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12">
+  <%=link_to "Advance search",media_advance_search_index_path%>
+</div>
+<div class="col-md-12 icon-text-field">
+	<span id="icon_change"><i class="fa fa-search search-icon"></i></span>
+	<%= text_field_tag :media_search,nil,placeholder: "search media",class: "add-schdle-txt form-control"%>
+</div>
+<div style="clear:both;"></div>
+<div class="col-md-12">
+	<div class="search-top-head">
+		<div class="col-md-4 col-xs-4 clear-box">
+			<b class="media-result-count"><%=@case_media.count%></b> RESULTS
+		</div>
+		<div class="col-md-4 col-xs-4 clear-box">
+			<%= select_tag :media_type, options_for_select([ ["PHOTO","image"],["VIDEO","video"],["AUDIO","audio"],["ALL","all"]],"PHOTO"),class: "new-select"  %>
+		</div>
+		<div class="col-md-4 col-xs-4 clear-box">
+			<center><%= select_tag :sort_media, options_for_select([ ["LAST WEEK","last_week"],["LAST MONTH","last_month"],["LAST YEAR","last_year"],["ALL","all"]],"last_week"),class: "new-select-right"%>
+			</center>
+		</div>
+	</div>
+</div>
+<div class="media_search_results">
+	<%= render "media/search_media"%>
+	<div style="text-align: center;"><%#= will_paginate @case_media %></div>
+</div>
+
+

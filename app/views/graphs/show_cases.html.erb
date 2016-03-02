@@ -1,0 +1,49 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header static-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to date_range_graphs_path do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Stats</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center"></h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4></h4>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<% @cases.each do |surgery_case|%>
+  <% surgery_case.try(:patient)%>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="seprator1">
+        <div class="col-sm-10 col-xs-8  col-md-12 ">
+          <div class="col-sm-10 col-xs-8  col-md-10 ">
+            <p class="static-name">
+            <b class="txt-clr">
+              <%=surgery_case.patient.full_name%></b>
+              <span>
+              <%=patient_dob(surgery_case.patient.dob)%> | <%=surgery_case.patient.gender.first%></span>
+            </p>
+            <span style="color: #e03347;"><%=surgery_case.side%></span>
+            <span class="default-light">
+              <%= surgery_case.diagnose_name %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <%=link_to case_path(surgery_case.id) do %>
+              <i class="fa fa-angle-right pull-right static-caret"></i>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+<%end%>

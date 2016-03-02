@@ -1,0 +1,21 @@
+<%if @users.present?%>
+	<div class="clearfix"></div>
+	<div class="search_user_detail">
+		<div class="user_detail">
+			<%@users.each do |user|%>
+				<h1><%=user.name%></h1>
+				<h6><%=user.email%></h6>
+				Send request to be your associate?</br>
+				<div class="clearfix"></div>
+				<div class="confirmation-box">
+					<div class="col-md-6">
+						<%=link_to "NO","#-", class: "cancel_invitation" ,style: "color:#333;"%>
+					</div>
+					<div class="col-md-6">
+						<%=link_to "YES",create_invitation_associates_path(user_id: user.id), method: :post%>
+					</div>
+				</div>
+			<%end%>
+		</div>
+	</div>
+<%end%>

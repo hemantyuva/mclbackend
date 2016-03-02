@@ -1,0 +1,5 @@
+$("#questions-tab").html("<%= j (render 'questions/question_show') %>");
+$(".pagination a").click(function(){
+    $.getScript(this.href);
+    return false;
+});

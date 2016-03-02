@@ -1,0 +1,1 @@
+<%=select_tag "case[schedule_attributes][surgery_location_id]", options_from_collection_for_select(current_user.setting.try(:surgery_locations), "id", "name", @surgery_location.id), prompt: "Select", class: "form-control" %>

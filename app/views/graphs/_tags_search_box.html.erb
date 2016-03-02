@@ -1,0 +1,9 @@
+<div id="search-graph-main" style="display:none;">
+    <div class="col-md-12 clear-box icon-text-field">
+        <span id="icon_change">
+        	<i class="fa fa-search search-icon"></i>
+        </span>
+        <%=hidden_field_tag :graph_type,nil, class: "graph_type_input"%>
+        <%= text_field_tag :graph_tags,nil,id: "graph-tag-search",placeholder: "Search tags",class: "add-schdle-txt form-control", "data-params"=>"#{params.to_param}" %>
+    </div><br><br><br>
+</div>

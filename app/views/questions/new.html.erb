@@ -1,0 +1,17 @@
+<div class="col-md-12">
+	<%= form_for (@question) do |f|%>
+		<div class="form-group ask-title">
+			<%= f.text_field :title,class: "form-control" ,placeholder: "write question here", required: true %>
+		</div>
+		<div class="form-group" id="ques-form">
+			<ul class="ques-btn">
+				<li>
+					<%= link_to "CANCEL",questions_path,class: "btn ask-cancel"%>
+				</li>
+				<li>
+					<%= f.submit "ASK",class: "btn  ",remote: :true%>
+				</li>
+			</ul>
+		</div>
+	<%end%>
+</div>

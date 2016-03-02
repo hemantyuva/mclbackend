@@ -1,0 +1,5 @@
+<%if !@associate.edit_right %>
+	<div class="align-right"><%=link_to "ON",update_edit_right_associate_path(@associate,value: true),remote: true,class: "btn btn-success"%></div>
+<%else%>
+	<div class="align-right"><%=link_to "OFF",update_edit_right_associate_path(@associate,value: false),remote: true,class: "btn btn-default"%></div>
+<%end%>

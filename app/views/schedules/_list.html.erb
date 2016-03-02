@@ -1,0 +1,62 @@
+<div class="partial_surgery_view">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="top-header">
+				<div class="col-sm-3 col-xs-3 col-md-3">
+					<i class="calender-icon fa fa-calendar"></i>
+				</div>
+				<div class="col-sm-6 col-xs-6 col-md-6">
+					<h4 class="text-center"><b style="color:#e03347"><%= @cases.count %></b> <%= surgery_counts_text(@cases.count) %></h4>
+				</div>	
+				<div class="col-sm-3 col-xs-3 col-md-3">	
+				<% if session[:edit_right].nil? || session[:edit_right] %>
+					<%= link_to add_schedules_path do %>
+						<i class="list-plus-circle fa fa-plus-circle pull-right"></i>
+					<% end %>
+				<%end%>
+				</div>
+			</div>
+			<% @cases.each do |surgery_case|%>
+				<% surgery_case.try(:patient)%>
+				<% if surgery_case.schedule.schedule_date.to_date.future? || surgery_case.schedule.schedule_date.to_date.today?%>
+					<div class="col-md-12">
+						<span class="date-fmt"><%= schedule_dates(surgery_case.schedule.schedule_date) rescue "" %></span>
+					<div class="seprator1">
+						<div class="col-sm-2 col-xs-4 col-md-2">
+							<div class="timing">
+								<span class="tm-fnt"><%= surgery_time(surgery_case.schedule.schedule_date) rescue ""%></span>
+								<span><%= surgery_notation(surgery_case.schedule.schedule_date) rescue "" %></span>
+							</div>
+						</div>
+						<div class="col-sm-10 col-xs-8  col-md-10 ">
+								<p>
+								<% if session[:edit_right].nil? || session[:edit_right]%>
+									<b class="txt-clr">
+									<%= link_to surgery_case.patient.full_name, edit_case_path(surgery_case)%></b>
+								<%else%>
+									<b class="txt-clr">
+									<%=surgery_case.patient.full_name%></b>
+								<%end%><br>
+								<span style="color: #e03347;"><%=surgery_case.side%></span>
+								<span class="default-light">
+								<%= surgery_case.diagnose_name %></span></p>
+						</div>
+					</div>
+					</div>
+				<%end%>
+		  <%end%>
+		    <div style="text-align: center;"><%#= will_paginate @cases %></div>
+		</div>
+	</div>
+</div>
+	
+
+
+
+
+
+
+
+
+
+

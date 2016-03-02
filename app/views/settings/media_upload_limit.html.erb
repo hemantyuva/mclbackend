@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4>          
+          <%= link_to media_upload_setting_settings_path do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Media Settings</i>
+          <%end%>
+        </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+        <h4 class="text-center">MediaUpload Settings</h4>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4></h4>
+      </div>
+    </div>
+  </div>
+</div><br>
+
+<div class="sur_lction_pding"></div><br>
+<div class="clearfix"></div>
+  <div class="form-horizontal">
+    <div class="">
+      <div class="col-md-12">
+      	<%= form_for @media_upload_setting,:url => set_media_upload_limit_settings_path, :method => :get do |f|%>
+         <div class="form-group">
+         	<%= f.label :media_upload_limit,"Media Upload Limit (MB)",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+            <div class="col-sm-10 col-xs-8 col-md-8">
+              <%= f.number_field :media_upload_limit, :class => 'form-control',placeholder: "media upload limit",min: "1",max: "64",type: "number" %>
+            </div>
+              <%= f.submit "Save",class: "btn btn-success"%>
+          </div>
+      	<%end%>
+      	</div>
+    </div>
+  </div>

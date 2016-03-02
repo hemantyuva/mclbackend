@@ -1,0 +1,91 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="top-header">
+			<div class="col-sm-3 col-xs-3 col-md-3">
+				<h4><%= link_to "Cancel",case_path(@case.id),class: "fit-left"%></h4>
+			</div>
+			<div class="col-sm-6 col-xs-6 col-md-6">
+				<h4 class="text-center">Edit Surgery</h4>
+			</div>
+			<div class="col-sm-3 col-xs-3 col-md-3">
+				<h4><%= link_to "Done","#",class: "fit-right submit-my-form"%>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="form-horizontal">
+	<div class="">
+		<div class="col-md-12">
+			<%= form_for (@case),:html=>{:class=>"edit_case my-form"} do |surgery_case|%>
+					<div class="form-group">
+						<%= surgery_case.label :surgery_name, "SURGERY",class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+						<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+							<%= surgery_case.text_field :surgery_name,id: "surgery-name-tags",placeholder: "Search Surgery",class: "form-control"%>
+						</div>
+					</div>
+				 	<%= surgery_case.fields_for :schedule do |schedule| %>
+						<div class="form-group">
+		  				<%= schedule.label :schedule_date,"SCHEDULE DATE",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+			  			<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+				  			<% if @case.schedule.schedule_date.present? %>
+				  				<%= schedule.text_field :schedule_date,class: "form-control",id: "edit_schedule_datepicker",value: schedule_date_format(@case.schedule.schedule_date) %>
+				  			<%else%>
+				  				<%= schedule.text_field :schedule_date,class: "form-control",id: "schedule_datepicker" %>
+				  			<%end%>
+			  			</div>
+			  		</div>
+			   	<%end%>
+			   	<div class="form-group">
+		  			<%= surgery_case.label :surgery_date," SURGERY DATE",class: "control-label col-sm-2 col-xs-4 col-md-3" %>
+			  		<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+				  		<% if @case.surgery_date.present? %>
+				  			<%= surgery_case.text_field :surgery_date,class: "form-control",id: "edit_surgery_datepicker",value: schedule_date_format(@case.surgery_date)%>
+				  		<%else%>
+				  			<%= surgery_case.text_field :surgery_date,class: "form-control",id: "surgery_datepicker",value: schedule_date_format(@case.schedule.schedule_date)%>
+				  		<%end%>
+			  		</div>
+			  	</div>
+			    <div class="form-group">
+						<%= surgery_case.label :assistant_name, "ASSISTANTS",class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+						<div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+							<%= surgery_case.collection_select :assistant_name, current_user.preferrence.assistants.select(&:presence).uniq, :to_s, :to_s, {class: "form-control",:include_blank => false},{:multiple => true} %>
+						</div>
+					</div>
+		 		<!-- <div class="form-group">
+					<%#= label_tag "CASE TEMPLATE",nil,class: "control-label col-sm-2 col-xs-4 col-md-2"%>
+					<div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+						<%#=select_tag "admin_form_id",grouped_options_for_select({"Admin Case Templates"=>AdminForm.pluck(:form_name,:id), "My Case Templates"=>current_user.user_forms.pluck(:form_name,:id)}, @case.try(:user_form).try(:id)), prompt: "Select", class: "form-control", "data-id"=>"#{@case.id}" %>
+					</div>
+				</div> -->
+				<div id="case_tempate">
+					<%if @case.user_form_fields.present?%>
+						<div class="case_form_fields">
+							<%@case.user_form_fields.each do |id|%>
+								<% @field = UserField.find(id) %>
+								<%= render 'field_with_type'%>
+							<%end%>
+						</div>
+					<%end%>
+				</div>
+				<%= hidden_field_tag :edit_surgery, "true" %>		
+				<input type="submit" id="submit-my-form" style="display:none;">	
+			<%end%>
+		</div>
+	</div>
+</div>
+
+
+<style type="text/css">
+.multiselect-container{
+    width: 97.5%;
+    margin-top: 60px;
+    position: absolute;
+    z-index: 999;
+    border-radius: 0;
+}
+
+body .col-lg-8{
+	overflow: inherit;
+}
+</style>

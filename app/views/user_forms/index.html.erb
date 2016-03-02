@@ -1,0 +1,82 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to settings_path do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">Settings</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">My Templates</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+    <div class="new-template-btn">
+      <a data-toggle="modal" data-target="#myModal" class="answer-title ">Add new templates</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div><br>
+<div class="clearfix"></div>
+<div class="invitees-top"></div>
+<div class="invitees-list">
+  <%if !@user_forms.present?%>
+    No templates present
+  <%else%>
+    <b>My Default Cases</b>
+    <%@user_forms.each do |form|%>
+        <div>
+          <%=link_to form.form_name,edit_user_form_path(form.id)%>
+          <br>
+        </div>
+    <%end%>
+  <%end%>
+</div>
+
+
+<!-- Add new template Modal Start -->
+<div class="modal fade" id="myModal" role="dialog">
+   <div class="modal-dialog custom-dialog-modal">
+      <!-- new template content-->
+      <div class="modal-content new-template-pop-up">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Select from existing template</h4>
+         </div>
+         <div class="modal-body">
+          <%= form_tag new_user_form_user_forms_path, method: "get" do |f| %>
+            <div class="form-group">
+              <%= label_tag "Form Type",nil,class: "control-label col-sm-2 col-xs-4 col-md-3"%>
+              <div class="col-sm-10 col-xs-8  col-md-9  clear-box">
+                <%= select_tag :user_form_type, options_for_select([["Surgery","surgery"],["Followup","followup"]]), prompt: "Select", class: "form-control",:required => true%>
+              </div>
+            </div>
+
+            <div class="form-group" id="surgary">
+              <label class="control-label col-sm-2 col-xs-4 col-md-3">
+              </label>
+              <div class="col-sm-10 col-xs-8  col-md-9  clear-box" >
+                <%=select_tag "surgary_form_id", options_for_select(AdminForm.where(form_type: "surgery").pluck(:form_name,:id)), prompt: "Select", class: "form-control"%>
+              </div>
+            </div>
+            <div class="form-group" id="followup">
+              <label class="control-label col-sm-2 col-xs-4 col-md-3">
+              </label>
+              <div class="col-sm-10 col-xs-8  col-md-9  clear-box"  >
+                <%=select_tag "followup_form_id", options_for_select(AdminForm.where(form_type: "followup").pluck(:form_name,:id)), prompt: "Select", class: "form-control"%>
+              </div>
+            </div>
+            <center>
+              <%= button_tag "Done",class: "btn btn-success model-add"%>
+            </center>
+          <%end%>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Add new template Modal End -->

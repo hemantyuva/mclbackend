@@ -1,0 +1,10 @@
+<span><%= @question.votes.count %></span>
+<% if @question.vote_present?(@associate_user) %>
+	<%= link_to destroy_question_votes_question_vote_path(@question,owned_user_like(@question,@associate_user)), :method=>"delete", :remote=>true do %>
+	<span class="glyphicon glyphicon-thumbs-up"></span>
+	<%end%>
+<% else %>
+	<%= link_to create_question_votes_question_votes_path(@question), :method=>"post", :remote=>true do %>
+		<span class="glyphicon glyphicon-thumbs-up" style="color:#333333;"></span>
+	<%end%>
+<% end %>

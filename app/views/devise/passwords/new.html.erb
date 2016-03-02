@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="card card-container">
+      <div class="login-div">
+      <div class="logo-img"><%= image_tag "logo1.jpg"%></div>
+        <div class="app-name">MyCaselog</div>
+      </div>
+      <div class="alert-message">
+        <% if !resource.errors.blank?%>
+          <div class="alert-alert"><%=resource.errors.full_messages.join("<br/>").html_safe %>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-form-container form-signin">
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <div class="form-group">
+              <i class="fa fa-envelope-o icon1"></i>
+                <%= f.email_field :email, autofocus: true, placeholder: "email",class: "form-control"%>
+              </div>  
+              <div class="actions">
+                <%= f.submit "Send me reset password instructions",class: "btn btn-lg btn-success btn-block btn-signin"  %>
+              </div>
+            <% end %><br/>
+        <div class="forgot-password">
+          <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+        </div>
+        <div class="sign-in-link">
+          <%= link_to "Sign in", new_user_session_path %>         
+        </div>
+        <br />
+      </div>
+  </div><!-- /card-container -->
+</div><!-- /container -->

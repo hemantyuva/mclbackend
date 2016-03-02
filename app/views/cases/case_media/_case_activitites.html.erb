@@ -1,0 +1,76 @@
+<div class="cse-nte-indx">
+  <% @case_activitites.each do |activity|%>
+    <div class="cse-note">
+      <div class="bubble"></div>
+      <span class="pull-right"><%= schedule_dates(activity.created_at)%></span>
+        <% find_case_user(activity.user_id,activity.owner_id)%>
+      <span class="time-line-user-image"><%= user_image(@user) %></span>
+      <p style="color:#333;"><%= @user_name %></p>
+      <p style="color:#e03347;"><%= local_time_ago(activity.created_at)%></p>
+      <div class="nte-edt">
+        <% if activity.activeable_type == "CaseNote" %>
+          <% find_case_note(activity.activeable_id)%>
+          <p><%= @case_note.note %>
+          <% if session[:edit_right].nil? || session[:edit_right]%>
+            <% if (@case_note.owner_id == @timeline_user.id)%>
+              <%= link_to edit_case_case_note_path(@surgery_case,@case_note) do %>
+                <i class="fa fa-edit"></i>
+              <%end%>
+            <%end%>
+          <%end%>
+          </p>
+          <table border="1" cellspacing="5px" class="entry-table">
+            <%if @case_note.user_form_data.present?%>
+              <% @case_note.user_form_data.each do |user_form_data|%>
+                <tr>
+                  <td>
+                  <b><%=user_form_data[0]%></b>
+                  </td>
+                  <% if user_form_data[1].kind_of?(Array) %>
+                    <td>
+                      <% user_form_data[1].each_with_index do |field_option_id,index| %>
+                        <%= index+1 %>. <%= UserField.all.map(&:field_options).flatten.select{|p| p.id.to_s==field_option_id}[0].option_text %><br/>
+                      <% end %>
+                    </td>
+                  <% else %>
+                    <td>
+                      <%= UserField.all.map(&:field_options).flatten.select{|p| p.id.to_s==user_form_data[1]}[0].option_text rescue user_form_data[1] %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        <% elsif  activity.activeable_type == "CaseMedium" %>
+          <% find_case_media(activity.activeable_id)%>
+          <% @case_media.case_media_attachments.each do |attachment|%>
+            <% if session[:edit_right].nil? || session[:edit_right] %>
+              <% if (@case_media.owner_id == @timeline_user.id)%>
+                <%= link_to case_media_attachment_path(attachment,case_id: @surgery_case) do %>
+                  <% if attachment.attachment.content_type.start_with? 'image'%>
+                    <%= image_tag attachment.attachment.thumb.url, width: "100", height: "100"%>
+                  <%else%>
+                    <%= video_tag attachment.attachment.url,width: "100"%>
+                  <%end%>
+                <%end%>
+              <%else%>
+                <% if attachment.attachment.content_type.start_with? 'image'%>
+                  <%= image_tag attachment.attachment.thumb.url, width: "100", height: "100"%>
+                <%else%>
+                  <%= video_tag attachment.attachment.url,width: "100"%>
+                <%end%>
+              <%end%>
+            <%else%>
+              <% if attachment.attachment.content_type.start_with? 'image'%>
+                <%= image_tag attachment.attachment.thumb.url, width: "100", height: "100"%>
+              <%else%>
+                <%= video_tag attachment.attachment.url,width: "100"%>
+              <%end%>
+            <%end%>
+          <%end%>
+        <%end%>
+      </div>
+    </div>
+  <%end%>
+</div>
+

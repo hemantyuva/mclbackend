@@ -1,0 +1,4 @@
+<%@recent_search_term.each do |term|%>
+	<p><%=link_to term,case_search_search_index_path(:searchterm =>term), remote: true%>
+	</p>
+<%end%>

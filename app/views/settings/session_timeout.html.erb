@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-5">
+       <h4>
+          <%= link_to settings_path do %>
+            <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;Settings</i>
+          <%end%>
+       </h4>
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-4">
+        <span class="cse-shw-dte">Login Timeout</span>
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lgin_tout_pdng">Select how often you require fresh server login</div>
+
+<div class="lgin_tout_text">
+  <ul>
+    <%session_time_check(@user.setting.session_max)%>
+    <li>Always logged in
+      <span>
+        <%= link_to check_session_time_settings_path(time_limit: "Always") do%>
+            <% if @timeout_always %>
+              <i class="btn-check fa fa-check-circle-o"></i>
+            <%else%>
+              <i class="fa fa-check-circle-o"></i>
+            <%end%>
+        <%end%>
+      </span>
+    </li>
+    <li>Every 24hrs
+      <span>
+      <%= link_to check_session_time_settings_path(time_limit: "24") do%>
+          <% if @timeout_one_day %>
+            <i class="btn-check fa fa-check-circle-o"></i>
+          <%else%>
+            <i class="fa fa-check-circle-o"></i>
+          <%end%>
+      <%end%>
+      </span>
+    </li>
+    <li>Every 48hrs
+      <span>
+      <%= link_to check_session_time_settings_path(time_limit: "48") do%>
+          <% if @timeout_two_days  %>
+            <i class="btn-check fa fa-check-circle-o"></i>
+          <%else%>
+            <i class="fa fa-check-circle-o"></i>
+          <%end%>
+      <%end%>
+      </span>
+    </li>
+    <li>Unless I logout
+      <span>
+      <%= link_to check_session_time_settings_path(time_limit: "Unless") do%>
+          <% if @timeout_unless %>
+            <i class="btn-check fa fa-check-circle-o"></i>
+          <%else%>
+            <i class="fa fa-check-circle-o"></i>
+          <%end%>
+      <%end%>
+      </span>
+    </li>
+  </ul>
+</div>
+<div class="lgin_tout_btm_pdng"></div>
+
+

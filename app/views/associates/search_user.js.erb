@@ -1,0 +1,5 @@
+<% if params[:searchterm] != ''%>
+	$('#user_search_list').html("<%= j (render 'users_list') %>");
+<%else%>
+	$('.search_user_detail').remove();
+<%end%>

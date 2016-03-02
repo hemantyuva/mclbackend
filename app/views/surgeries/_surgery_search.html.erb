@@ -1,0 +1,23 @@
+<div class="mange-master">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created</th>
+        <th>Modified</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @surgeries.each do |surgery| %>
+        <tr>  
+          <td><%= surgery.name %></td>
+          <td><%= spec_date_format(surgery.created_at)%></td>
+          <td><%= spec_date_format(surgery.updated_at)%></td>
+          <td><%= link_to 'Modify', edit_surgery_path(surgery) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

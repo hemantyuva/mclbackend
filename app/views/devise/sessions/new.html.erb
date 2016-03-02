@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="card card-container">
+      <div class="login-div">
+      <div class="logo-img"><%= image_tag "logo1.jpg"%></div>
+        <div class="app-name">MyCaselog</div>
+      </div>
+      <div class="alert-message">
+      <% flash.each do |key, value| %>
+        <div class="alert-<%= key %>"><%= value %></div>
+      <% end %></div>
+      <div class="card-form-container form-signin">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-group">
+              <i class="fa fa-envelope-o icon1"></i>
+
+                <%= f.email_field :email, placeholder: "email",class: "form-control",id: "" %>
+              </div>  
+
+              <div class="form-group">
+              <i class="fa ct-lock icon2"></i>
+                <%= f.password_field :password, autocomplete: "off",placeholder: "password",class: "form-control" %>
+              </div>
+
+              <div class="actions">
+                <%= f.submit "LOGIN",class: "btn btn-lg btn-success btn-block btn-signin"  %>
+              </div>
+            <% end %><br/>
+        <div class="forgot-password">
+          <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+            <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+          <% end -%>
+        </div>
+      </div>
+  </div><!-- /card-container -->
+</div><!-- /container -->
+
+
+
+    

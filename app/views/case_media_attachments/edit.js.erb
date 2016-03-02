@@ -1,0 +1,7 @@
+$('#media-attachment').html("<%= j (render 'cases/case_media/edit_attachment', case_media_attachment: @case_media_attachment) %>");
+
+  $('#attachment_tag').tagsInput({ 
+    'width':'100%',
+    'height':'43px',
+    'autocomplete_url': "/case_media_attachments/search_tags"
+  });

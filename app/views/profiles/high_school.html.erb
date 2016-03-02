@@ -1,0 +1,38 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to user_profile_data_profile_path(@associate_user) do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;My Profile Data</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">School Details</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4></h4>
+    </div>
+  </div>
+</div>
+</div><br>
+<div class="prfle-adres-pading"></div>
+
+<div class="col-md-8 col-md-offset-2 col-xs-12 text-center ">
+	<%= nested_form_for @profile_setting ,url: update_high_school_profile_path(@associate_user), method: "post" do |f| %>
+		<%= f.fields_for :high_schools do |school| %>
+  			<div class="col-md-4 col-xs-5 no-padding">
+  				<%= school.label :text,"High school"%>
+  			</div>
+  			<div class="col-md-6 col-xs-5 no-padding">
+  				<%= school.text_area :text %>
+  			</div>
+		    <div class="col-md-2 col-xs-2">
+		    	<%= school.link_to_remove "-" , class: "remove-option" %>
+		    </div>
+		<% end %>
+		<%= f.link_to_add "+",:high_schools, class: "add more add-option" %>
+		<%= f.submit "Update",class: "btn-success btn"%>
+	<% end %>
+</div>

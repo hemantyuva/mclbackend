@@ -1,0 +1,144 @@
+<div class="col-md-12">
+   	<div class="heading-title">Questions</div>
+   	<% if !@question.nil? %>
+   	<div class="media-box">
+      	<div class="media-box-left">
+            <%= link_to show_user_profile_profiles_path(id: @question.user.id) do %>
+              <%= user_image @question.user%>
+            <% end %>
+      	</div>
+      	<div class="media-box-body">
+         	<h4><%= @question.title %></h4>
+      	</div>
+   	</div>
+   	<div class="clearfix"></div>
+   	<div class="row">
+      	<div class="question-user">
+        	<div class="col-md-4 col-xs-4">
+         		<%= @question.user.name%>
+         	</div>
+	        <div class="col-md-4 col-xs-5 no-padding">
+	            <center>
+	        		<%= @question.created_at.strftime("%b  %d, %Y")%>
+	        	</center>
+	        </div>
+	        <div class="col-md-4 col-xs-3">
+	            <div class="votes-box">
+	               <span id="question-votes-<%=@question.id%>">
+	               <%= render 'votes/question_votes'%>
+	               </span>
+	            </div>
+	        </div>
+     	</div>
+   	</div>
+   	<div class="qus-ans-box">
+      	<div class="question-row">
+			<%=link_to edit_question_path(@question) do %>
+				<%if @associate_user.id == @question.user.id %>
+              <i class="fa fa-pencil-square-o pull-right"></i>
+            <%end%>
+			<%end%>
+			<h3 class="title">Description</h3>
+			<p><%= @question.content %></p>
+			<%=link_to edit_question_path(@question) do %>
+				<%if @associate_user.id == @question.user.id %>
+              <i class="fa fa-pencil-square-o pull-right"></i>
+            <%end%>
+			<%end%>
+			<h3 class="title">Media</h3>
+			<div class="question-img">
+				<% @question.question_media_attachments.each do |attachment|%>
+					<span><%= image_tag attachment.image.url %></span>
+				<%end%>
+			</div>
+			<%=link_to edit_question_path(@question) do %>
+            <%if @associate_user.id == @question.user.id %>
+				  <i class="fa fa-pencil-square-o pull-right"></i>
+            <%end%>
+			<%end%>
+			<h3 class="title">Tags</h3>
+			<div class="question-tags">
+            <%= render "questions/question_tags_show"%>
+			</div>
+         <h3 class="title">Polls</h3>
+         <div class="question-tags">
+            <% @question.options.each do |option|%>
+               <span class="poll-span">
+                  <%=radio_button_tag :poll,option.text,false,class: "poll_option"%>
+                  <%=option.text%>
+                  ( <%=@question.answers.where(:poll=>option.text).count%> votes )
+               </span><br/>
+            <%end%>
+         </div>
+	<%end%>
+		</div>
+   	</div>
+   <div class="answer-list">
+      <center>
+         <a data-toggle="modal" data-target="#myModal" class="answer-title">Answer this question</a>
+      </center>
+      <div class="count-box">
+         <h4 class="pull-left">Answers</h4>
+         <b class="pull-right count-new"><%= @question.answers.count%></b> 
+      </div>
+      <% @answers.each do |answer|%>
+      <div class="media-box">
+         <div class="media-box-left">
+            <%= user_image answer.user%>
+         </div>
+         <div class="media-box-body">
+            <div class="details-ans">
+               <p><%= answer.answer_text %>
+               </p>
+               <%= local_time_ago(answer.created_at)%> by  <span class="ans-user-name"><%= answer.user.name %></span>
+               <span class="pull-right" id="answer-votes-<%=answer.id%>">
+               <%= render 'votes/answer_votes', :answer=>answer%>
+               </span>
+               <div class="question-img">
+                  <% answer.answer_media_attachments.each do |attachment| %>
+                   <%= image_tag attachment.image.url %>
+                  <%end%>
+               </div>
+               <div>
+                  <%=answer.poll%>
+               </div>
+            </div>
+         </div>
+      </div>
+      <%end%>
+   </div>
+</div>
+<!-- Add NewLocation Modal Start -->
+<div class="modal fade" id="myModal" role="dialog">
+   <div class="modal-dialog custom-dialog-modal">
+      <!-- NewLocation content-->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Your Answer</h4>
+         </div>
+         <div class="modal-body">
+            <%= form_for(@answer, :html => { :multipart => true }) do |f| %>
+            <%= hidden_field_tag :question_id,@question.id %>
+            <%= hidden_field_tag "answer[user_id]", @associate_user.id %>
+            <%= hidden_field_tag "answer[poll]"%>
+            <div class="form-group">
+               <%= f.label :answer_text,"Answer"%>
+               <%= f.text_field :answer_text,class: "answer-submit form-control", placeholder: "write the answer here"%>
+            </div>
+            <%= f.fields_for :answer_attachments do |p| %>
+            <div class="form-group">
+               <%= p.label :image,"Attachments" %><br>
+               <%= p.file_field :image, :multiple => true,name: "answer_attachment[image][]" %>
+            </div>
+            <% end %>
+            <%= f.submit "Post",class: "btn btn-success model-add"%>
+            <%end%>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Add NewLocation Modal End -->

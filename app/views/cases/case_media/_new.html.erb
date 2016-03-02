@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="top-header">
+      <div class="col-sm-3 col-xs-3 col-md-3">
+      </div>
+      <div class="col-sm-6 col-xs-6 col-md-6">
+      </div>
+      <div class="col-sm-3 col-xs-3 col-md-3">
+		<h4><%= link_to "CANCEL",cases_path,class: "fit-left"%></h4>
+      </div>
+    </div>
+  </div>
+</div>
+<%= form_for [@surgery_case,@case_medium], :html=>{:class=>"edit_case", id: "media-form-update", multipart: "true"}  do |f|%>
+  <%= hidden_field_tag "case_medium[case_id]",params[:case_id]%>
+  <%= file_field_tag "case_medium[case_media_attachments_attributes][][attachment]", multiple: true, id: "case_medium_update_fields", style: "display:none;" %>
+<%end%>    
+<div class="image-main-box">
+
+<table align="center">
+  <tr>
+    <td>
+      <div class="img-box"><i class="fa fa-camera"></i></div> 
+    </td>
+    <td>
+      <div id="case_medium_update_popup",class="img-box"><i class="fa fa-picture-o"></i></div>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <div class="img-box"><i class="fa fa-video-camera"></i></div>
+    </td>
+    <td>
+      <div class="img-box"><i class="fa fa-microphone"></i></div>
+    </td>
+  </tr>
+</table>
+</div>
+

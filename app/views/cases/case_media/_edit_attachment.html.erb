@@ -1,0 +1,92 @@
+<% if !case_media_attachment.nil?%>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="error-box">
+        <span class="cross-button close close-button" style="display:none;">×</span>
+        <div class="error_msg"></div>
+      </div>
+      <div class="top-header">
+        <div class="col-sm-3 col-xs-3 col-md-3">
+        <h4><h4><center><%= link_to 'Cancel', [@surgery_case, @case_medium], method: :delete,class: "txt-lft" %></center></h4>
+        </div>
+        <div class="col-sm-6 col-xs-6 col-md-6 cse-edt-pge">
+          <h4 class="text-center">
+            <%= link_to case_media_attachment_path(case_media_attachment), :method => :delete do %>
+              <i class="fa fa-times-circle-o"></i>
+            <%end%>
+            <i class="fa fa-crop image-crop-click" id="<%= case_media_attachment.id%>"></i>
+            <i class="fa fa-repeat image-rotate-click" id="<%= case_media_attachment.id%>"></i></h4>
+        </div>
+        <div class="col-sm-3 col-xs-3 col-md-3">
+            <h4><%= link_to "Upload","#", class: "submit-media-form txt-rgt"%></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="crop-back-grnd">
+<!--   <div class="cssload-container">
+    <div class="cssload-speeding-wheel"></div>
+  </div> -->
+  <div style="text-align:center;" class="north img-last">
+    <% if case_media_attachment.attachment.content_type.start_with? 'image'%>
+        <%= image_tag case_media_attachment.attachment.case_image.url,class: "img-north",id: "cropbox_#{case_media_attachment.id}"%>
+    <%elsif case_media_attachment.attachment.content_type.start_with? 'audio'%>
+        <audio controls>
+           <source src="<%=case_media_attachment.attachment.url%>">
+        </audio>
+      <%else%>
+         <video controls style="width: 70%">
+          <source src="<%=case_media_attachment.attachment.url%>">
+        </video>
+      <%end%>
+  </div>    
+  <div style="clear:both;"></div>
+<br>
+  <%= form_for [@surgery_case,@case_medium,case_media_attachment], :html=>{id: "media-attachment-form-update_#{case_media_attachment.id}", multipart: "true"}  do |f|%>
+      <%= hidden_field_tag :case_id,@surgery_case.id%>
+      <input type="text" size="4" value="<%= case_media_attachment.id%>" style="display:none;" id="case_id">
+      <input type="text" size="4" id="x_<%= case_media_attachment.id%>" style="display:none;" name="cord[x]">
+      <input type="text" size="4" id="y_<%= case_media_attachment.id%>" style="display:none;" name="cord[y]">
+      <input type="text" size="4" id="x2_<%= case_media_attachment.id%>" style="display:none;" name="cord[x2]">
+      <input type="text" size="4" id="y2_<%= case_media_attachment.id%>" style="display:none;" name="cord[y2]">
+      <input type="text" size="4" id="w_<%= case_media_attachment.id%>" style="display:none;" name="cord[w]">
+      <input type="text" size="4" id="h_<%= case_media_attachment.id%>" style="display:none;" name="cord[h]">
+      <input type="text" size="4" id="rotate-angle_<%= case_media_attachment.id%>" style="display:none;" name="degree_angle">
+      
+    <div class="form-group">
+      <%= label_tag "case_media_attachment[tags]","TAGS",class: " col-sm-2 col-xs-4 col-md-2 label-hght" %>
+      <span class="tags-error"></span>
+      <div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+      <%= text_field_tag "case_media_attachment[tags]", (case_media_attachment.tags.join(", ") rescue nil),id: "attachment_tag_#{case_media_attachment.id}",class: "form-control media_tag_limit_count"%>
+      </div><div style="clear:both;"></div>
+    </div>  
+     <div class="form-group">
+      <%= label_tag "case_media_attachments[note]","NOTE",class: " col-sm-2 col-xs-4 col-md-2 label-hght" %>
+      <div class="col-sm-10 col-xs-8  col-md-10  clear-box">
+        <%= text_field_tag "case_media_attachment[note]",case_media_attachment.try(:note),class: "form-control"%>
+      </div>
+    </div><br>
+  <%end%>
+<%end%>
+  <br>
+</div>
+
+
+<script type="text/javascript">
+// Media tag limit showing up alert message
+$("body").on("keyup",".ui-autocomplete-input",function(evt){
+  attachment_id = this.id.split('_')[2];
+  tag_limit = parseInt("<%= @tag_count %>");
+    attachment_tag_count = $("#attachment_tag_"+attachment_id+"_tagsinput").children(".tag").length;
+    var id = $("#attachment_tag_"+attachment_id+"_tagsinput").find('input').attr('id');
+    if (attachment_tag_count >= tag_limit){
+      $(".tags-error").html("you are not allowed to add more tags").addClass("tag-error-msg")
+      $("#attachment_tag_"+attachment_id+"_tagsinput").find('input').attr('id','')
+    } else {
+      $("#attachment_tag_"+attachment_id+"_tagsinput").find('input').attr('id',id)
+    }
+});
+
+</script>
+
+

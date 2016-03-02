@@ -1,0 +1,7 @@
+$('.media-result-count').text('<%=@case_media.count%>')
+$('.media_search_results').html("<%= j (render 'search_media') %>");
+
+$(".pagination a").click(function(){
+    $.getScript(this.href);
+    return false;
+});

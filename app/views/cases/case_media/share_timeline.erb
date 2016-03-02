@@ -1,0 +1,204 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="timeline-txt">
+        <span class="tmline-txt-clr"><%= @surgery_case.patient.full_name%></span><br>
+        <span class="tmline-txt-dnse"><%= @surgery_case.diagnose_name%></span><br>
+        <span class="tmline-dt-txt"><%= case_datum_format(@surgery_case.schedule.schedule_date)%></span>
+    </div>
+      <ul class="nav-list-box">
+        <li>
+            <div class="round-box"></i></div>
+            <%=link_to "SHARE TIMELINE",share_timeline_case_case_media_path(:format => "pdf"),target: "_blank"%>
+        </li>
+        <li>
+           <div class="round-box"></div>
+           <%= link_to "SHARE MEDIA"%>
+       </li>
+       <li>
+          <div class="round-box"></i></div>
+          <%= link_to "ADD MEDIA",new_case_case_medium_path(@surgery_case)%>
+       </li>
+       <li>
+          <div class="round-box"></i></div>
+          <%= link_to "ADD NOTE",new_case_case_note_path(@surgery_case)%>
+       </li>
+    </ul>        
+  </div>
+</div>
+
+<div class="media-cunt">
+  <span class="cse-txt-etry col-md-5 col-offset-md-5"><%= @case_notes.count%> ENTRIES</span>
+  <span class="cse-txt-mda col-md-4"><%= @case_notes.count%> MEDIA</span>
+  <span class="cse-txt-nte"><%= @case_notes.count%> NOTES</span>
+</div>
+
+
+<div class="cse-nte-indx">
+  <% @case_activitites.each do |activity|%>
+    <div class="cse-note">
+      <div class="bubble"></div>
+        <span class="pull-right"><%= schedule_dates(activity.created_at)%></span>
+        <% find_case_user(activity.user_id,activity.owner_id)%>
+        <p style="color:#e03347;"><%= @user_name %></p>
+        <p style="color:#e03347;"><%= local_time_ago(activity.created_at)%></p>
+      <div class="nte-edt">
+        <% if activity.activeable_type == "CaseNote" %>
+          <% find_case_note(activity.activeable_id)%>
+            <p><%= @case_note.note %>
+            <%= link_to edit_case_case_note_path(@surgery_case,@case_note) do %>
+              <i class="fa fa-edit"></i>
+            <%end%></p>
+        <% elsif  activity.activeable_type == "CaseMedium" %>
+          <% find_case_media(activity.activeable_id)%>
+          <%= @case_media.case_media_attachments.first.note %>
+            <%= link_to edit_case_case_medium_path(@surgery_case,@case_media) do %>
+               <i class="fa fa-edit"></i>
+            <%end%><br><br>
+          <% @case_media.case_media_attachments.each do |attachment|%>
+            <%= link_to case_media_attachment_path(attachment) do %>
+              <%= wicked_pdf_image_tag(attachment.attachment.url , width: 100, height: 60, :style=>"margin-bottom: 0px;" ) %>
+            <%end%>
+          <%end%>
+        <%end%>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+
+<style type="text/css">
+  body{ 
+    background:#F3F3F3;
+}
+body .col-lg-8 { 
+    box-shadow: 0px 0px 7px 1px #cccccc;
+    padding: 0;
+    margin-bottom: 50px;
+    font-family: 'HelveticaNeue-Light';
+}
+
+.timeline-txt{
+    text-align: center;
+    padding: 15px;
+    background: #F3F3F3;
+}
+.tmline-txt-clr{
+    color: #464646;
+    font-weight: bold;
+    font-size: 22px;
+}
+.tmline-txt-dnse{
+    color:#5F5F5F;
+    font-size: 18px;
+}
+.tmline-dt-txt{
+    color:#5F5F5F;
+    font-size: 13px;   
+}
+.fle-fld-padding{
+    padding:17px;
+}
+
+.fa-edit{
+    color: #464646;
+}
+
+.fa-edit:hover{
+    cursor: pointer;
+    text-decoration: none; 
+    color: #464646;
+}
+
+
+.round-box{
+    height: 50px;
+    width: 50px;
+    background-color: #e03347;
+    border-radius: 50%;
+    margin:0 auto 8px;
+}
+
+.nav-list-box{
+    margin:0;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 16px;
+  }
+.nav-list-box li{
+    display: inline-block;
+  }
+.nav-list-box li {
+    display: inline-block;
+    width: 24%;
+    text-align: center;
+    font-weight: bold;
+}
+.round-box{
+   .fa {
+    font-size: 22px;
+    color: #fff;
+    padding: 12px;
+   } 
+}
+
+@media only screen and (max-width: 500px) {
+    .nav-list-box{
+        font-size: 11px;
+    }
+}
+
+.media-cunt{
+    border-bottom: 1px solid #ccc;
+    padding: 8px; 
+    background-color: #fff;  
+}
+
+.cse-note {
+    background-color: #fff;
+    padding: 20px 20px 28px;
+    border-left: 1px solid #ccc;
+    margin-left: 38px;
+    border-bottom: 1px solid #ccc;
+}
+.cse-txt-etry{
+    background-color: #fff;  
+    font-size: 14px;
+    font-weight: bold;
+    color: #e03347;
+    margin-left:25px;
+}
+.cse-txt-mda{
+    background-color: #fff;  
+    font-size: 14px;
+    font-weight: bold;
+    color: #e03347;
+}
+.cse-txt-nte{
+    background-color: #fff; 
+    font-size: 14px;
+    font-weight: bold;
+    color: #e03347;
+    margin-left: 40px;
+}
+    
+.bubble {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    position: absolute;
+    left: 30px;
+    background-color: #fff;
+}
+.nte-edt {
+    padding: 10px 0px;
+    color: #8E8E8E;
+    font-size: 18px;
+}
+.cse-usr{
+    color: #8E8E8E;
+    font-size: 18px;    
+}
+
+</style>

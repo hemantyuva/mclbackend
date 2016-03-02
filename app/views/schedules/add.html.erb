@@ -1,0 +1,23 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="top-header">
+		<div class="col-sm-3 col-xs-3 col-md-3">
+		</div>
+		<div class="col-sm-6 col-xs-6 col-md-6">
+			<h4 class="text-center">Add Schedule</h4>
+		</div>
+		<div class="col-sm-3 col-xs-3 col-md-3">
+			<h4><%= link_to "Cancel",schedules_path,class: "fit-right"%></h4>
+		</div>
+	</div>	
+</div>
+<div class="clearfix"></div>
+ <div class="col-md-12 clear-box icon-text-field">
+	<i class="fa fa-search search-icon"></i>
+		<%= text_field_tag :patient_name,nil,id: "patients-tags",placeholder: "Search patient",class: "add-schdle-txt form-control"%>
+</div><br>
+<div style="clear:both;"></div>
+<div class="add-schdule-gap"></div>
+<div class="color-add"><span class="add-new-patient fa fa-plus-circle"></span>
+	<%= link_to "Add New Patient",new_patient_path(prev_url: "schedule_patient"),class: "patient-add-btn"%>
+</div>
+

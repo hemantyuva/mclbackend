@@ -1,0 +1,108 @@
+<%- model_class = Patient -%>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-2 col-xs-3 col-md-3">
+      <%= link_to patients_path do %>
+        <i class="fa fa-chevron-left icon-fit-left"></i>
+      <%end%>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center"><b><%= @patient.full_name%></b><br><%= patient_dob(@patient.dob)%> <%= @patient.gender%></h4>
+    </div>
+    <div class="col-sm-2 col-xs-3 col-md-3">  
+    </div>
+  </div>  
+</div>
+<div class="clearfix"></div>
+ <div class="col-md-12 clear-box icon-text-field">
+  <div class="col-sm-12 col-xs-12 col-md-12">
+    <ul class="patient-tabs-nav nav nav-tabs" id="patient-new">
+      <li><a data-toggle="tab" href="#misc_media">MISC<br>MEDIA</a></li>
+      <li><a data-toggle="tab" href="#my_surgeries">MY<br>SURGERIES</a></li>
+      <li class="active"><a data-toggle="tab" href="#my_details">MY<br>DETAILS</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="misc_media" class="tab-pane fade">
+        <div class="patient-attachment">
+          <table class="table table-bordered table-striped" style="width: 40%;">
+            <% @cases.each do |surgery_case|%>
+            <% surgery_case.case_media.each do |case_media|%>
+              <div><%= attachment_format(case_media.created_at)%></p>
+              <% case_media.case_media_attachments.each do |attachment|%>
+               <%= link_to case_media_attachment_path(attachment,case_id: case_media.case_id) do %>
+                <% if attachment.attachment.content_type.start_with? 'image'%>
+                  <%= image_tag attachment.attachment.thumb.url, width: "100", height: "100"%>
+                <%else%>
+                  <%= video_tag attachment.attachment.url,width: "100"%>
+                <%end%>
+              <%end%>
+              <%end%>
+              <div class="img-border"></div>
+            <%end%>
+            <%end%>
+          </table>
+        </div>
+      </div>
+      <div id="my_surgeries" class="tab-pane fade">
+           <% @cases.each do |surgery_case|%>
+              <div class="patient-attachment">
+                <div><%= attachment_format(surgery_case.schedule.schedule_date)%></div>
+                <div><h3 class="txt-diag"><span style="color: #e03347;"><%=surgery_case.side%></span> <%= surgery_case.diagnose_name%></h3><h4><%= surgery_case.surgery_name%></h4></div>
+              </div>
+           <%end%>
+          <% if session[:edit_right].nil? || session[:edit_right]%>
+            <div class="color-add"><span class="add-new-patient fa fa-plus-circle"></span>
+              <%= link_to "Add Surgery",new_patient_case_path(@patient),class: "patient-add-btn"%>
+            </div>
+          <%end%>
+      </div>
+      <div id="my_details" class="tab-pane fade active in">
+       <div class="patient-attachment"> 
+        <table class="table table-striped">
+          <% if !@patient.nil? %>
+            <tr>
+              <th width="30%">FIRSTNAME</th>
+              <td><%= @patient.firstname %></td>
+            </tr>
+            <tr>
+              <th>LASTNAME</th>
+              <td><%= @patient.lastname %></td>
+            </tr>
+            <tr>
+              <th>DATE OF BIRTH</th>
+              <td><%= @patient.dob.to_date_format %></td>
+            </tr>
+            <tr>
+              <th>PHONE NUMBER</th>
+              <td><%= @patient.phone %></td>
+            </tr>
+            <tr>
+              <th>GENDER</th>
+              <td><%= @patient.gender %></td>
+            </tr>
+            <tr>
+              <th>EMAIL</th>
+              <td><%= @patient.email %></td>
+            </tr>
+          <%end%>
+        </table>
+        <%= link_to t('.back', :default => t("helpers.links.back")),
+                    patients_path, :class => 'btn btn-default'  %>
+        <% if session[:edit_right].nil? || session[:edit_right] %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_patient_path(@patient), :class => 'btn btn-default' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      patient_path(@patient),
+                      :method => 'delete',
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-danger' %>
+        <%end%>
+        <br/><br/>  
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="clear:both;"></div>
+

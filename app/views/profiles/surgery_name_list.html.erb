@@ -1,0 +1,36 @@
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="top-header">
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4>          
+        <%= link_to user_app_data_profile_path(@associate_user) do %>
+          <i class="fa fa-chevron-left cse-shw-dte shw-page-updte">&nbsp;My App data</i>
+        <%end%>
+      </h4>
+    </div>
+    <div class="col-sm-6 col-xs-6 col-md-6">
+      <h4 class="text-center">Surgery Names</h4>
+    </div>
+    <div class="col-sm-3 col-xs-3 col-md-3">
+      <h4></h4>
+    </div>
+  </div>
+</div>
+</div><br>
+<div class="clearfix"></div>
+<div class="sury-name-list"></div>
+<% @surgeries.each_with_index do |surgery|%>
+    <% if !surgery.name.blank?%>
+      <div class="list-nme-surgy">
+        <p>&nbsp;&nbsp;<%= surgery.name%>
+        <span class="pull-right">
+          <%= link_to edit_surgery_name_profile_path(surgery) do %>
+            <i class="mange-assitant-icon fa fa-pencil-square-o"></i>
+          <%end%>
+        </span>
+        </p>
+      </div>
+    <%end%>
+<%end%>
+
+
